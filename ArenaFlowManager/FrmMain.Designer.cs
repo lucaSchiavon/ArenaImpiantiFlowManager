@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             this.ToolStripMainMenu = new System.Windows.Forms.ToolStrip();
             this.TStripBtnNuovo = new System.Windows.Forms.ToolStripButton();
             this.TStripBtnDashboard = new System.Windows.Forms.ToolStripButton();
@@ -41,16 +40,12 @@
             this.nuovoClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuovoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entitaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripSecondaryMenu = new System.Windows.Forms.ToolStrip();
-            this.TStripLblPageTitle = new System.Windows.Forms.ToolStripLabel();
-            this.TStripBtnFiltra = new System.Windows.Forms.ToolStripButton();
-            this.TStripTxtRicercaGenerale = new System.Windows.Forms.ToolStripTextBox();
-            this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.PnlMainContent = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.LblFormName = new System.Windows.Forms.Label();
             this.ToolStripMainMenu.SuspendLayout();
             this.contextMenuNuovo.SuspendLayout();
-            this.ToolStripSecondaryMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ToolStripMainMenu
@@ -65,9 +60,8 @@
             this.TStripBtnAltro});
             this.ToolStripMainMenu.Location = new System.Drawing.Point(0, 0);
             this.ToolStripMainMenu.Name = "ToolStripMainMenu";
-            this.ToolStripMainMenu.Size = new System.Drawing.Size(1193, 75);
+            this.ToolStripMainMenu.Size = new System.Drawing.Size(1184, 75);
             this.ToolStripMainMenu.TabIndex = 0;
-            this.ToolStripMainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStripMainMenu_ItemClicked);
             // 
             // TStripBtnNuovo
             // 
@@ -111,6 +105,7 @@
             this.TStripBtnClienti.Text = "Clienti";
             this.TStripBtnClienti.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.TStripBtnClienti.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TStripBtnClienti.Click += new System.EventHandler(this.TStripBtnClienti_Click);
             // 
             // TStripBtnScheduler
             // 
@@ -172,69 +167,44 @@
             this.entitaToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.entitaToolStripMenuItem.Text = "Altra entità";
             // 
-            // ToolStripSecondaryMenu
+            // PnlMainContent
             // 
-            this.ToolStripSecondaryMenu.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ToolStripSecondaryMenu.ImageScalingSize = new System.Drawing.Size(48, 48);
-            this.ToolStripSecondaryMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TStripLblPageTitle,
-            this.TStripBtnFiltra,
-            this.TStripTxtRicercaGenerale});
-            this.ToolStripSecondaryMenu.Location = new System.Drawing.Point(0, 75);
-            this.ToolStripSecondaryMenu.Name = "ToolStripSecondaryMenu";
-            this.ToolStripSecondaryMenu.Size = new System.Drawing.Size(1193, 32);
-            this.ToolStripSecondaryMenu.TabIndex = 1;
+            this.PnlMainContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnlMainContent.Location = new System.Drawing.Point(0, 102);
+            this.PnlMainContent.Name = "PnlMainContent";
+            this.PnlMainContent.Size = new System.Drawing.Size(1184, 659);
+            this.PnlMainContent.TabIndex = 1;
             // 
-            // TStripLblPageTitle
+            // flowLayoutPanel1
             // 
-            this.TStripLblPageTitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.TStripLblPageTitle.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.TStripLblPageTitle.ForeColor = System.Drawing.Color.Gainsboro;
-            this.TStripLblPageTitle.Name = "TStripLblPageTitle";
-            this.TStripLblPageTitle.Size = new System.Drawing.Size(119, 29);
-            this.TStripLblPageTitle.Text = "text example";
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.flowLayoutPanel1.Controls.Add(this.LblFormName);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 75);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1184, 27);
+            this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // TStripBtnFiltra
+            // LblFormName
             // 
-            this.TStripBtnFiltra.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.TStripBtnFiltra.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.TStripBtnFiltra.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.TStripBtnFiltra.ForeColor = System.Drawing.Color.Gainsboro;
-            this.TStripBtnFiltra.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TStripBtnFiltra.Name = "TStripBtnFiltra";
-            this.TStripBtnFiltra.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.TStripBtnFiltra.Size = new System.Drawing.Size(78, 29);
-            this.TStripBtnFiltra.Text = "Filtra";
-            // 
-            // TStripTxtRicercaGenerale
-            // 
-            this.TStripTxtRicercaGenerale.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.TStripTxtRicercaGenerale.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.TStripTxtRicercaGenerale.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.TStripTxtRicercaGenerale.Name = "TStripTxtRicercaGenerale";
-            this.TStripTxtRicercaGenerale.Size = new System.Drawing.Size(200, 32);
-            this.TStripTxtRicercaGenerale.Text = "Cerca...";
-            // 
-            // radGridView1
-            // 
-            this.radGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radGridView1.Location = new System.Drawing.Point(0, 107);
-            // 
-            // 
-            // 
-            this.radGridView1.MasterTemplate.ViewDefinition = tableViewDefinition1;
-            this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(1193, 483);
-            this.radGridView1.TabIndex = 2;
+            this.LblFormName.AutoSize = true;
+            this.LblFormName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblFormName.ForeColor = System.Drawing.Color.Black;
+            this.LblFormName.Location = new System.Drawing.Point(3, 3);
+            this.LblFormName.Name = "LblFormName";
+            this.LblFormName.Size = new System.Drawing.Size(90, 18);
+            this.LblFormName.TabIndex = 0;
+            this.LblFormName.Text = "Dashboard";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1193, 590);
-            this.Controls.Add(this.radGridView1);
-            this.Controls.Add(this.ToolStripSecondaryMenu);
+            this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.PnlMainContent);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.ToolStripMainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
@@ -245,10 +215,8 @@
             this.ToolStripMainMenu.ResumeLayout(false);
             this.ToolStripMainMenu.PerformLayout();
             this.contextMenuNuovo.ResumeLayout(false);
-            this.ToolStripSecondaryMenu.ResumeLayout(false);
-            this.ToolStripSecondaryMenu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,10 +237,8 @@
         private System.Windows.Forms.ToolStripMenuItem nuovoClienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuovoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem entitaToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip ToolStripSecondaryMenu;
-        private System.Windows.Forms.ToolStripLabel TStripLblPageTitle;
-        private System.Windows.Forms.ToolStripTextBox TStripTxtRicercaGenerale;
-        private System.Windows.Forms.ToolStripButton TStripBtnFiltra;
-        private Telerik.WinControls.UI.RadGridView radGridView1;
+        private System.Windows.Forms.Panel PnlMainContent;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label LblFormName;
     }
 }

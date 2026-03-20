@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArenaFlowManager.UserControls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,18 +15,12 @@ namespace ArenaFlowManager
     {
         public FrmMain()
         {
+            //rende lo scrolling e le transizioni della UI più fluide
+            this.DoubleBuffered = true;
             InitializeComponent();
-            // Associa evento click per mostrare il menu popup
-            //TStripBtnNuovo.Click += TStripBtnNuovo_Click;
+            
+   
         }
-
-        //private void TStripBtnNuovo_Click(object sender, EventArgs e)
-        //{
-        //    // Mostra il menu popup sotto il bottone
-        //    var btn = TStripBtnNuovo;
-        //    var location = new System.Drawing.Point(0, btn.Bounds.Height);
-        //    contextMenuNuovo.Show(btn.Owner, btn.Bounds.Left, btn.Bounds.Bottom);
-        //}
 
         private void TStripBtnNuovo_Click(object sender, EventArgs e) 
         {
@@ -44,12 +39,36 @@ namespace ArenaFlowManager
 
         private void nuovoClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var FormModificaCliente = new FrmModificaClente(0);
+            FormModificaCliente.ShowDialog();
         }
 
-        private void ToolStripMainMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+    
+        private void TStripBtnClienti_Click(object sender, EventArgs e)
         {
-
+            UcClienti moduloClienti = new UcClienti();
+            ApriModulo(moduloClienti);
+            LblFormName.Text = moduloClienti.FormName;        
         }
+
+        private void ApriModulo(UserControl modulo)
+        {
+           
+            // Trova l'eventuale UserControl già presente e rimuovilo
+           var VecchioModulo = PnlMainContent.Controls.OfType<UserControl>().FirstOrDefault();
+            if (VecchioModulo != null)
+            {
+                PnlMainContent.Controls.Remove(VecchioModulo);
+                VecchioModulo.Dispose();
+            }
+
+
+            modulo.Dock = DockStyle.Fill;
+            PnlMainContent.SuspendLayout();
+            PnlMainContent.Controls.Add(modulo);
+            //modulo.SendToBack();
+            PnlMainContent.ResumeLayout();
+        }
+       
     }
 }
