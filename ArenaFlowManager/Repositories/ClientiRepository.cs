@@ -142,7 +142,7 @@ namespace ArenaFlowManager.Repositories
             string query = @"SELECT top 100 * FROM [ArenaImpianti].[dbo].[AnagraficheClienti] ";
             if (!string.IsNullOrWhiteSpace(ricerca))
             {
-                query += "WHERE [RagioneSociale] LIKE @search OR [Comune] LIKE @search OR [Prov] LIKE @search OR [CAP] LIKE @search";
+                query += "WHERE [RagioneSociale] LIKE @search OR [Comune] LIKE @search OR [Prov] LIKE @search OR [CAP] LIKE @search OR [Contatto] LIKE @search";
             }
             query += " order by RagioneSociale";
 

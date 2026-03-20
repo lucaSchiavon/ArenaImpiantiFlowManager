@@ -115,6 +115,15 @@ namespace ArenaFlowManager
 
                     // Nuovo inserimento
                     _cliente = new ArenaFlowManager.Models.Clienti.AnagraficaClientiDto();
+                    //imposta i default
+                    CboPrivato.SelectedValue = "0";
+                    CboStato.SelectedValue = "1";
+                    CboPaese.SelectedValue = "IT";
+                    CboPubblicaAmm.SelectedValue= "0";
+                    CboScissionePagamenti.SelectedValue = "0";
+                    CboConsensoPrivacy.SelectedValue = "0";
+                    CboRegimeIva.SelectedValue = "1"; //regime ordinario
+
                 }
             }
             catch (Exception ex) 
@@ -217,15 +226,22 @@ namespace ArenaFlowManager
                 combo.SelectedValue = "-";
         }
 
-        private void BtnChiudi_Click(object sender, EventArgs e)
+        private void BtnEsciSenzaSalvare_Click(object sender, EventArgs e)
         {
             this.Close();
             this.Dispose();
         }
 
-        private void panel7_Paint(object sender, PaintEventArgs e)
-        {
+  
 
+        private void CboPagamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void CboBanca_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            TxtIban.Text = "IT54N0503459380000000000262";
         }
 
         //private void label10_Click(object sender, EventArgs e)

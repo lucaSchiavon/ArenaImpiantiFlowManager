@@ -206,6 +206,7 @@
             this.Controls.Add(this.PnlMainContent);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.ToolStripMainMenu);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

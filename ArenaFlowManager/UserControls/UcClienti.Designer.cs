@@ -43,6 +43,7 @@
             this.Comune = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Prov = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CAP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Contatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TblPnlSearch = new System.Windows.Forms.TableLayoutPanel();
             this.BtnReset = new System.Windows.Forms.Button();
             this.TxtRicerca = new System.Windows.Forms.TextBox();
@@ -242,7 +243,8 @@
             this.RagioneSociale,
             this.Comune,
             this.Prov,
-            this.CAP});
+            this.CAP,
+            this.Contatto});
             this.dataGridViewClienti.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewClienti.Location = new System.Drawing.Point(3, 79);
             this.dataGridViewClienti.Name = "dataGridViewClienti";
@@ -291,6 +293,14 @@
             this.CAP.HeaderText = "CAP";
             this.CAP.Name = "CAP";
             this.CAP.ReadOnly = true;
+            // 
+            // Contatto
+            // 
+            this.Contatto.DataPropertyName = "Contatto";
+            this.Contatto.HeaderText = "Contatto";
+            this.Contatto.Name = "Contatto";
+            this.Contatto.ReadOnly = true;
+            this.Contatto.Width = 430;
             // 
             // TblPnlSearch
             // 
@@ -893,11 +903,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button BtnNuovo;
         private System.Windows.Forms.Button BtnElimina;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdAnagraficaCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RagioneSociale;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Comune;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Prov;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CAP;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -952,5 +957,11 @@
         private System.Windows.Forms.TextBox TxtRicerca;
         private System.Windows.Forms.Button BtnGestioneContatti;
         private System.Windows.Forms.Button BtnDestinazioniDiverse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdAnagraficaCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RagioneSociale;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comune;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Prov;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CAP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Contatto;
     }
 }

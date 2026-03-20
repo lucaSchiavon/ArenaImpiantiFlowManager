@@ -12,6 +12,7 @@ namespace ArenaFlowManager.Models.Clienti
             public int IdContattoCliente { get; set; }
             public int IdAnagraficaCliente { get; set; }
             public int IdTipoContatto { get; set; }
+            public string TipoContatto { get; set; }
             public string Contatto { get; set; }
             public string NotaContatto { get; set; }     
             public DateTime DataRecord { get; set; }

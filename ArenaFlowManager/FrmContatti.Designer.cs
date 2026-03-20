@@ -46,6 +46,7 @@
             this.bindingSourceContatti = new System.Windows.Forms.BindingSource(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnSalva = new System.Windows.Forms.Button();
+            this.BtnEsciSenzaSalvare = new System.Windows.Forms.Button();
             this.IdContattoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoContatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Contatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,12 +71,11 @@
             // 
             // LblTitoloForm
             // 
-            this.LblTitoloForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LblTitoloForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblTitoloForm.ForeColor = System.Drawing.Color.White;
-            this.LblTitoloForm.Location = new System.Drawing.Point(0, 0);
+            this.LblTitoloForm.Location = new System.Drawing.Point(0, 11);
             this.LblTitoloForm.Name = "LblTitoloForm";
-            this.LblTitoloForm.Size = new System.Drawing.Size(1013, 52);
+            this.LblTitoloForm.Size = new System.Drawing.Size(1013, 32);
             this.LblTitoloForm.TabIndex = 0;
             this.LblTitoloForm.Text = "Gestione Contatti";
             this.LblTitoloForm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -169,7 +169,9 @@
             this.dataGridViewContatti.Size = new System.Drawing.Size(1013, 345);
             this.dataGridViewContatti.TabIndex = 44;
             this.dataGridViewContatti.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContatti_CellDoubleClick);
+            this.dataGridViewContatti.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewContatti_RowHeaderMouseClick);
             this.dataGridViewContatti.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewContatti_RowHeaderMouseDoubleClick);
+            this.dataGridViewContatti.SelectionChanged += new System.EventHandler(this.dataGridViewContatti_SelectionChanged);
             // 
             // flowLayoutPanel2
             // 
@@ -220,6 +222,7 @@
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.flowLayoutPanel1.Controls.Add(this.BtnSalva);
+            this.flowLayoutPanel1.Controls.Add(this.BtnEsciSenzaSalvare);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 634);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -238,6 +241,17 @@
             this.BtnSalva.UseVisualStyleBackColor = true;
             this.BtnSalva.Click += new System.EventHandler(this.BtnSalva_Click);
             // 
+            // BtnEsciSenzaSalvare
+            // 
+            this.BtnEsciSenzaSalvare.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(765, 8);
+            this.BtnEsciSenzaSalvare.Name = "BtnEsciSenzaSalvare";
+            this.BtnEsciSenzaSalvare.Size = new System.Drawing.Size(164, 39);
+            this.BtnEsciSenzaSalvare.TabIndex = 1;
+            this.BtnEsciSenzaSalvare.Text = "Esci senza salvare";
+            this.BtnEsciSenzaSalvare.UseVisualStyleBackColor = true;
+            this.BtnEsciSenzaSalvare.Click += new System.EventHandler(this.BtnEsciSenzaSalvare_Click);
+            // 
             // IdContattoCliente
             // 
             this.IdContattoCliente.DataPropertyName = "idContattoCliente";
@@ -254,7 +268,7 @@
             this.TipoContatto.Name = "TipoContatto";
             this.TipoContatto.ReadOnly = true;
             this.TipoContatto.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TipoContatto.Width = 150;
+            this.TipoContatto.Width = 200;
             // 
             // Contatto
             // 
@@ -270,23 +284,27 @@
             this.Nota.HeaderText = "Nota";
             this.Nota.Name = "Nota";
             this.Nota.ReadOnly = true;
-            this.Nota.Width = 570;
+            this.Nota.Width = 520;
             // 
             // FrmContatti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 488);
+            this.ClientSize = new System.Drawing.Size(1037, 705);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.dataGridViewContatti);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmContatti";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestione Contatti";
+            this.Load += new System.EventHandler(this.FrmContatti_Load);
+            this.Shown += new System.EventHandler(this.FrmContatti_Shown);
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -316,6 +334,7 @@
         private System.Windows.Forms.BindingSource bindingSourceContatti;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button BtnSalva;
+        private System.Windows.Forms.Button BtnEsciSenzaSalvare;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdContattoCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoContatto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Contatto;

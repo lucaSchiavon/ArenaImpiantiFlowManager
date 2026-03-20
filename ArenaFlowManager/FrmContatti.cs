@@ -31,35 +31,50 @@ namespace ArenaFlowManager
                 InitializeComponent();
                 //nsaconde per ora la sezione di inserimento/modifica contatti e ridimensiona la form per mostrare solo la griglia
                 this.Height = 527;
-              
+
                 //_idCliente = idCliente;
 
                 //popola le combo
 
                 CaricaComboDaDb(CboTipo, repo.GetCboTipoContattoItems(), true);
 
-                
+
                 GrigliaSolaLettura();
 
                 BtnElimina.Visible = false;
                 BtnModifica.Visible = false;
-              
+
 
                 CaricaDati(idCliente);
 
-                dataGridViewContatti.ClearSelection();
-
+                ClientiRepository repoClienti = new ClientiRepository();
+                LblTitoloForm.Text = $"Contatti cliente: {repoClienti.GetAnagraficaClienti(idCliente).FirstOrDefault().RagioneSociale}";
 
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 MessageBox.Show($"Errore durante il caricamento dei dati: {ex.Message}", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
-       
-        
+        private void FrmContatti_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                dataGridViewContatti.ClearSelection();
+                dataGridViewContatti.CurrentCell = null;
+                this.Height = 527;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore durante il caricamento dei dati: {ex.Message}", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
 
         private void BtnChiudi_Click(object sender, EventArgs e)
         {
@@ -96,6 +111,9 @@ namespace ArenaFlowManager
             DaInserimento = true;
             //mostra il panel per l'inserimento del nuovo contatto
             this.Height = 743;
+            this.ControlBox = false; // Disabilita i pulsanti di chiusura, minimizzazione e massimizzazione
+            BtnModifica.Visible = false;
+            BtnElimina.Visible = false;
         }
 
         private void BtnModifica_Click(object sender, EventArgs e)
@@ -123,6 +141,9 @@ namespace ArenaFlowManager
 
                 //mostra il panel per l'inserimento del nuovo contatto
                 this.Height = 743;
+                BtnElimina.Visible = false;
+                BtnNuovo.Visible = false;
+                this.ControlBox = false; // Disabilita i pulsanti di chiusura, minimizzazione e massimizzazione
             }
 
         }
@@ -161,9 +182,8 @@ namespace ArenaFlowManager
                         // Aggiornamento              
                         repo.UpdateContatto(Contatto);
               
-                        MessageBox.Show("Contatto aggiornato", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
+                        //MessageBox.Show("Contatto aggiornato", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //todo:aggiornare la griglia
                     }
                        
                 }
@@ -210,12 +230,39 @@ namespace ArenaFlowManager
         {
             BtnElimina.Visible = true;
             BtnModifica.Visible = true;
+            BtnNuovo.Visible = true;
         }
 
         private void dataGridViewContatti_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             BtnElimina.Visible = true;
             BtnModifica.Visible = true;
+            BtnNuovo.Visible = true;
+        }
+
+        private void FrmContatti_Shown(object sender, EventArgs e)
+        {
+            //dataGridViewContatti.ClearSelection();
+        }
+
+        private void BtnEsciSenzaSalvare_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void dataGridViewContatti_SelectionChanged(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void dataGridViewContatti_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            BtnElimina.Visible = true;
+            BtnModifica.Visible = true;
+            BtnNuovo.Visible = true;
+
+            this.Height = 527;
         }
     }
 }

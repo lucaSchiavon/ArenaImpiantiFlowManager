@@ -34,21 +34,27 @@ namespace ArenaFlowManager.UserControls
                 BtnDestinazioniDiverse.Enabled = false;
 
                 caricaDati();
+                // Sottoscrivi l'evento: scatta ogni volta che i dati cambiano
+                dataGridViewClienti.DataBindingComplete += DataGridViewClienti_DataBindingComplete;
             }
             catch (Exception Ex)
-            { 
-            MessageBox.Show("Errore durante l'inizializzazione del controllo: " + Ex.Message, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                MessageBox.Show("Errore durante l'inizializzazione del controllo: " + Ex.Message, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void DataGridViewClienti_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dataGridViewClienti.ClearSelection();
+            dataGridViewClienti.CurrentCell = null; // Rimuove anche il rettangolo del focus
         }
 
         private void UcClienti_Load(object sender, EventArgs e)
         {
-            TxtRicerca.Focus();
+           
         }
 
        
-
-
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
@@ -112,6 +118,10 @@ namespace ArenaFlowManager.UserControls
                         int idToSelect = FormModificaCliente.IdClienteSalvato;
                         caricaDati();
                         SelezionaRigaCliente(idToSelect);
+                        if (dataGridViewClienti.CurrentRow != null)
+                        {
+                            dataGridViewClienti_SelectionChanged(dataGridViewClienti, EventArgs.Empty);
+                        }
                     }
                 }
             }
@@ -135,6 +145,10 @@ namespace ArenaFlowManager.UserControls
                         int idToSelect = FormModificaCliente.IdClienteSalvato;
                         caricaDati();
                         SelezionaRigaCliente(idToSelect);
+                        if (dataGridViewClienti.CurrentRow != null)
+                        {
+                            dataGridViewClienti_SelectionChanged(dataGridViewClienti, EventArgs.Empty);
+                        }
                     }
                 }
             }
@@ -148,18 +162,86 @@ namespace ArenaFlowManager.UserControls
                 int idToSelect = FormModificaCliente.IdClienteSalvato;
                 caricaDati();
                 SelezionaRigaCliente(idToSelect);
+
+                if (dataGridViewClienti.CurrentRow != null)
+                {
+                    dataGridViewClienti_SelectionChanged(dataGridViewClienti, EventArgs.Empty);
+                }
             }
         }
 
+        //private void dataGridViewClienti_SelectionChanged(object sender, EventArgs e)
+        //{
+        //    if (dataGridViewClienti.SelectedRows.Count == 0 && dataGridViewClienti.SelectedCells.Count == 0)
+        //    {
+        //        SvuotaDettagli(); // Un metodo che svuota le textbox a destra
+        //        return;
+        //    }
+
+
+        //    var cliente = dataGridViewClienti.CurrentRow.DataBoundItem as Models.Clienti.AnagraficheClientiDto;
+        //    if (cliente == null)
+        //        return;
+
+        //    //CurrentIdCustomerSelectedInGrid = cliente.idAnagraficaCliente;
+
+        //    TxtRagSoc.Text = cliente.RagioneSociale;
+        //    TxtPrivato.Text = cliente.Privato ? "Sì" : "No";
+        //    //TxtCodice.Text = cliente.CodiceCliente;
+        //    TxtCategoria.Text = cliente.CategoriaCliente;
+        //    TxtStato.Text = cliente.StatoAnagrafica;
+
+        //    TxtIndirizzo.Text = cliente.Indirizzo;
+        //    TxtCap.Text = cliente.CAP;
+        //    TxtComune.Text = cliente.Comune;
+        //    TxtProvincia.Text = cliente.Prov;
+        //    TxtPaese.Text = cliente.Paese;
+        //    TxtPIva.Text = cliente.PIVA;
+        //    TxtCodFisc.Text = cliente.CodiceFiscale;
+        //    TxtContatto.Text = cliente.Contatto;
+
+        //    TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
+        //    TxtScissionepagamenti.Text = cliente.ScissionePagamenti ? "Sì" : "No";
+        //    //todo:da bindare
+        //    TxtConsensoPrivacy.Text = "NO";
+
+        //    TxtCodDest.Text = cliente.CodiceDestinatario;
+        //    TxtPecInvioFattura.Text = cliente.PECFatturaElettronica;
+        //    TxtPagamento.Text = cliente.Pagamento;
+        //    TxtBanca.Text = cliente.Banca;
+        //    TxtIban.Text = cliente.IBAN;
+        //    TxtRegimeIva.Text = cliente.DescrizioneRegimeIVA;
+
+
+        //    // Booleano → Sì/No
+        //    //TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
+
+        //    BtnElimina.Enabled = true;
+        //    BtnModifica.Enabled = true;
+        //    BtnGestioneContatti.Enabled = true;
+        //    BtnDestinazioniDiverse.Enabled = true;
+        //}
+
         private void dataGridViewClienti_SelectionChanged(object sender, EventArgs e)
         {
-
-            var cliente = dataGridViewClienti.CurrentRow.DataBoundItem as Models.Clienti.AnagraficheClientiDto;
-            if (cliente == null)
+            // 1. Controllo di sicurezza: se non c'è selezione o se la riga corrente è null
+            if (dataGridViewClienti.CurrentRow == null ||
+                (dataGridViewClienti.SelectedRows.Count == 0 && dataGridViewClienti.SelectedCells.Count == 0))
+            {
+                SvuotaDettagli();
                 return;
+            }
 
-            //CurrentIdCustomerSelectedInGrid = cliente.idAnagraficaCliente;
+            // 2. Uso il ?. per evitare crash se DataBoundItem non è ancora pronto
+            var cliente = dataGridViewClienti.CurrentRow.DataBoundItem as Models.Clienti.AnagraficheClientiDto;
 
+            if (cliente == null)
+            {
+                SvuotaDettagli();
+                return;
+            }
+
+            // 3. Popolamento dati (il tuo codice attuale...)
             TxtRagSoc.Text = cliente.RagioneSociale;
             TxtPrivato.Text = cliente.Privato ? "Sì" : "No";
             //TxtCodice.Text = cliente.CodiceCliente;
@@ -188,13 +270,100 @@ namespace ArenaFlowManager.UserControls
             TxtRegimeIva.Text = cliente.DescrizioneRegimeIVA;
 
 
-            // Booleano → Sì/No
-            //TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
-
             BtnElimina.Enabled = true;
             BtnModifica.Enabled = true;
             BtnGestioneContatti.Enabled = true;
             BtnDestinazioniDiverse.Enabled = true;
+        }
+
+        //private void dataGridViewClienti_SelectionChanged(object sender, EventArgs e)
+        //{
+        //    if (dataGridViewClienti.SelectedRows.Count == 0 && dataGridViewClienti.SelectedCells.Count == 0)
+        //    {
+        //        SvuotaDettagli(); // Un metodo che svuota le textbox a destra
+        //        return;
+        //    }
+
+
+        //    var cliente = dataGridViewClienti.CurrentRow.DataBoundItem as Models.Clienti.AnagraficheClientiDto;
+        //    if (cliente == null)
+        //        return;
+
+        //    //CurrentIdCustomerSelectedInGrid = cliente.idAnagraficaCliente;
+
+        //    TxtRagSoc.Text = cliente.RagioneSociale;
+        //    TxtPrivato.Text = cliente.Privato ? "Sì" : "No";
+        //    //TxtCodice.Text = cliente.CodiceCliente;
+        //    TxtCategoria.Text = cliente.CategoriaCliente;
+        //    TxtStato.Text = cliente.StatoAnagrafica;
+
+        //    TxtIndirizzo.Text = cliente.Indirizzo;
+        //    TxtCap.Text = cliente.CAP;
+        //    TxtComune.Text = cliente.Comune;
+        //    TxtProvincia.Text = cliente.Prov;
+        //    TxtPaese.Text = cliente.Paese;
+        //    TxtPIva.Text = cliente.PIVA;
+        //    TxtCodFisc.Text = cliente.CodiceFiscale;
+        //    TxtContatto.Text = cliente.Contatto;
+
+        //    TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
+        //    TxtScissionepagamenti.Text = cliente.ScissionePagamenti ? "Sì" : "No";
+        //    //todo:da bindare
+        //    TxtConsensoPrivacy.Text = "NO";
+
+        //    TxtCodDest.Text = cliente.CodiceDestinatario;
+        //    TxtPecInvioFattura.Text = cliente.PECFatturaElettronica;
+        //    TxtPagamento.Text = cliente.Pagamento;
+        //    TxtBanca.Text = cliente.Banca;
+        //    TxtIban.Text = cliente.IBAN;
+        //    TxtRegimeIva.Text = cliente.DescrizioneRegimeIVA;
+
+
+        //    // Booleano → Sì/No
+        //    //TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
+
+        //    BtnElimina.Enabled = true;
+        //    BtnModifica.Enabled = true;
+        //    BtnGestioneContatti.Enabled = true;
+        //    BtnDestinazioniDiverse.Enabled = true;
+        //}
+
+        private void SvuotaDettagli()
+        {
+            // Campi Anagrafica Principale
+            TxtRagSoc.Text = string.Empty;
+            TxtPrivato.Text = string.Empty;
+            TxtCategoria.Text = string.Empty;
+            TxtStato.Text = string.Empty;
+
+            // Campi Indirizzo e Località
+            TxtIndirizzo.Text = string.Empty;
+            TxtCap.Text = string.Empty;
+            TxtComune.Text = string.Empty;
+            TxtProvincia.Text = string.Empty;
+            TxtPaese.Text = string.Empty;
+            TxtPIva.Text = string.Empty;
+            TxtCodFisc.Text = string.Empty;
+            TxtContatto.Text = string.Empty;
+
+            // Campi Amministrativi e Privacy
+            TxtPubblicaAmm.Text = string.Empty;
+            TxtScissionepagamenti.Text = string.Empty;
+            TxtConsensoPrivacy.Text = string.Empty;
+
+            // Campi Fatturazione e Pagamenti
+            TxtCodDest.Text = string.Empty;
+            TxtPecInvioFattura.Text = string.Empty;
+            TxtPagamento.Text = string.Empty;
+            TxtBanca.Text = string.Empty;
+            TxtIban.Text = string.Empty;
+            TxtRegimeIva.Text = string.Empty;
+
+            // Reset pulsanti azione (opzionale ma consigliato)
+            BtnElimina.Enabled = false;
+            BtnModifica.Enabled = false;
+            BtnGestioneContatti.Enabled = false;
+            BtnDestinazioniDiverse.Enabled = false;
         }
 
         private void GrigliaSolaLettura()
@@ -236,22 +405,8 @@ namespace ArenaFlowManager.UserControls
             // Carica i dati dei clienti tramite ClientiRepository e li visualizza nella DataGridView tramite bindingSourceClienti
             var repo = new ClientiRepository();
             var lista = repo.GetAnagraficheClienti(TxtRicerca.Text);
-            //var ListaFiltrata = LstClienti.Select(c => new
-            //{
-            //    c.idAnagraficaCliente,
-            //    c.RagioneSociale,
-            //    c.Comune,
-            //    c.Prov
-            //}).ToList();
-
-            //LstClienti = new BindingList<AnagraficheClientiDto>(lista);
-
-
-
-
-            //bindingSourceClienti.DataSource = ListaFiltrata;
+           
             bindingSourceClienti.DataSource = lista;
-            //bindingSourceClienti.DataSource = new SortableBindingList<AnagraficheClientiDto>(lista);
             dataGridViewClienti.DataSource = bindingSourceClienti;
 
         }
@@ -288,32 +443,66 @@ namespace ArenaFlowManager.UserControls
                     int idToSelect = FormModificaCliente.IdClienteSalvato;
                     caricaDati();
                     SelezionaRigaCliente(idToSelect);
+                    if (dataGridViewClienti.CurrentRow != null)
+                    {
+                        dataGridViewClienti_SelectionChanged(dataGridViewClienti, EventArgs.Empty);
+                    }
                 }
             }
 
        
         }
+        //private void SelezionaRigaCliente(int idCliente)
+        //{
+        //    foreach (DataGridViewRow row in dataGridViewClienti.Rows)
+        //    {
+        //        if (row.Cells["idAnagraficaCliente"].Value != null && Convert.ToInt32(row.Cells["idAnagraficaCliente"].Value) == idCliente)
+        //        {
+        //            row.Selected = true;
+        //            // Imposta la cella corrente (sposta la freccia nera)
+        //            //dataGridViewClienti.CurrentCell = row.Cells[0];
+        //            // Trova la prima colonna visibile
+        //            DataGridViewColumn colVisibile = dataGridViewClienti.Columns
+        //                .Cast<DataGridViewColumn>()
+        //                .FirstOrDefault(c => c.Visible);
+
+        //            if (colVisibile != null)
+        //            {
+        //                dataGridViewClienti.CurrentCell = row.Cells[colVisibile.Index];
+        //            }
+        //            // Scrolla fino alla riga
+        //            dataGridViewClienti.FirstDisplayedScrollingRowIndex = row.Index;
+        //            break;
+        //        }
+        //    }
+        //}
+
         private void SelezionaRigaCliente(int idCliente)
         {
+            // Deseleziona tutto prima di iniziare
+            dataGridViewClienti.ClearSelection();
+
             foreach (DataGridViewRow row in dataGridViewClienti.Rows)
             {
-                if (row.Cells["idAnagraficaCliente"].Value != null && Convert.ToInt32(row.Cells["idAnagraficaCliente"].Value) == idCliente)
+                if (row.Cells["idAnagraficaCliente"].Value != null &&
+                    Convert.ToInt32(row.Cells["idAnagraficaCliente"].Value) == idCliente)
                 {
+                    // Trovata!
                     row.Selected = true;
-                    // Imposta la cella corrente (sposta la freccia nera)
-                    //dataGridViewClienti.CurrentCell = row.Cells[0];
-                    // Trova la prima colonna visibile
-                    DataGridViewColumn colVisibile = dataGridViewClienti.Columns
-                        .Cast<DataGridViewColumn>()
-                        .FirstOrDefault(c => c.Visible);
+
+                    // Troviamo la prima colonna visibile
+                    var colVisibile = dataGridViewClienti.Columns.Cast<DataGridViewColumn>()
+                                        .FirstOrDefault(c => c.Visible);
 
                     if (colVisibile != null)
                     {
+                        // Impostare la CurrentCell è fondamentale, ma facciamolo con cautela
                         dataGridViewClienti.CurrentCell = row.Cells[colVisibile.Index];
                     }
-                    // Scrolla fino alla riga
+
+                    // Scroll automatico
                     dataGridViewClienti.FirstDisplayedScrollingRowIndex = row.Index;
-                    break;
+                    return; // Esci subito dopo aver trovato il cliente
                 }
             }
         }

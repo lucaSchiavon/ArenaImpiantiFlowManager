@@ -32,7 +32,7 @@
             this.LblTitoloForm = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnSalva = new System.Windows.Forms.Button();
-            this.BtnChiudi = new System.Windows.Forms.Button();
+            this.BtnEsciSenzaSalvare = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.CboStato = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,6 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.CboPrivato = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.TxtRagSoc = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.TxtContatto = new System.Windows.Forms.TextBox();
@@ -80,7 +81,6 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.CboRegimeIva = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.TxtRagSoc = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -117,7 +117,7 @@
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.DodgerBlue;
             this.flowLayoutPanel1.Controls.Add(this.BtnSalva);
-            this.flowLayoutPanel1.Controls.Add(this.BtnChiudi);
+            this.flowLayoutPanel1.Controls.Add(this.BtnEsciSenzaSalvare);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 712);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -136,16 +136,16 @@
             this.BtnSalva.UseVisualStyleBackColor = true;
             this.BtnSalva.Click += new System.EventHandler(this.BtnSalva_Click);
             // 
-            // BtnChiudi
+            // BtnEsciSenzaSalvare
             // 
-            this.BtnChiudi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnChiudi.Location = new System.Drawing.Point(409, 8);
-            this.BtnChiudi.Name = "BtnChiudi";
-            this.BtnChiudi.Size = new System.Drawing.Size(66, 39);
-            this.BtnChiudi.TabIndex = 1;
-            this.BtnChiudi.Text = "Chiudi";
-            this.BtnChiudi.UseVisualStyleBackColor = true;
-            this.BtnChiudi.Click += new System.EventHandler(this.BtnChiudi_Click);
+            this.BtnEsciSenzaSalvare.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(325, 8);
+            this.BtnEsciSenzaSalvare.Name = "BtnEsciSenzaSalvare";
+            this.BtnEsciSenzaSalvare.Size = new System.Drawing.Size(150, 39);
+            this.BtnEsciSenzaSalvare.TabIndex = 1;
+            this.BtnEsciSenzaSalvare.Text = "Esci senza salvare";
+            this.BtnEsciSenzaSalvare.UseVisualStyleBackColor = true;
+            this.BtnEsciSenzaSalvare.Click += new System.EventHandler(this.BtnEsciSenzaSalvare_Click);
             // 
             // panel2
             // 
@@ -222,6 +222,15 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Privato:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TxtRagSoc
+            // 
+            this.TxtRagSoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtRagSoc.Location = new System.Drawing.Point(91, 17);
+            this.TxtRagSoc.Multiline = true;
+            this.TxtRagSoc.Name = "TxtRagSoc";
+            this.TxtRagSoc.Size = new System.Drawing.Size(369, 51);
+            this.TxtRagSoc.TabIndex = 21;
             // 
             // label8
             // 
@@ -552,6 +561,7 @@
             // 
             // TxtIban
             // 
+            this.TxtIban.Enabled = false;
             this.TxtIban.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtIban.Location = new System.Drawing.Point(103, 78);
             this.TxtIban.Name = "TxtIban";
@@ -577,6 +587,7 @@
             this.CboBanca.Name = "CboBanca";
             this.CboBanca.Size = new System.Drawing.Size(440, 26);
             this.CboBanca.TabIndex = 48;
+            this.CboBanca.SelectionChangeCommitted += new System.EventHandler(this.CboBanca_SelectionChangeCommitted);
             // 
             // label14
             // 
@@ -597,6 +608,7 @@
             this.CboPagamento.Name = "CboPagamento";
             this.CboPagamento.Size = new System.Drawing.Size(440, 26);
             this.CboPagamento.TabIndex = 47;
+            this.CboPagamento.SelectedIndexChanged += new System.EventHandler(this.CboPagamento_SelectedIndexChanged);
             // 
             // label22
             // 
@@ -618,7 +630,6 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(559, 49);
             this.panel7.TabIndex = 43;
-            this.panel7.Paint += new System.Windows.Forms.PaintEventHandler(this.panel7_Paint);
             // 
             // CboRegimeIva
             // 
@@ -640,20 +651,12 @@
             this.label20.Text = "Regime IVA:";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // TxtRagSoc
-            // 
-            this.TxtRagSoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtRagSoc.Location = new System.Drawing.Point(91, 17);
-            this.TxtRagSoc.Multiline = true;
-            this.TxtRagSoc.Name = "TxtRagSoc";
-            this.TxtRagSoc.Size = new System.Drawing.Size(369, 51);
-            this.TxtRagSoc.TabIndex = 21;
-            // 
             // FrmModificaClente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 776);
+            this.ControlBox = false;
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -662,9 +665,11 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmModificaClente";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cliente";
             this.panel1.ResumeLayout(false);
@@ -687,7 +692,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button BtnSalva;
-        private System.Windows.Forms.Button BtnChiudi;
+        private System.Windows.Forms.Button BtnEsciSenzaSalvare;
         private System.Windows.Forms.Label LblTitoloForm;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label8;

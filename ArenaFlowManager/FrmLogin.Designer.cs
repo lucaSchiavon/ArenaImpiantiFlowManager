@@ -56,7 +56,6 @@
             this.TxtUsername.Size = new System.Drawing.Size(363, 29);
             this.TxtUsername.TabIndex = 1;
             this.TxtUsername.Text = "Inserisci l\'utente";
-
             // 
             // TxtPassword
             // 
@@ -103,6 +102,7 @@
             this.Controls.Add(this.TxtPassword);
             this.Controls.Add(this.TxtUsername);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmLogin";
