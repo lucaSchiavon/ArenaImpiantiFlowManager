@@ -14,9 +14,25 @@ namespace ArenaFlowManager
         [STAThread]
         static void Main()
         {
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new FrmLogin());
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());
+
+            // Mostra il login in modo modale
+            using (var login = new FrmLogin())
+            {
+                if (login.ShowDialog() != DialogResult.OK)
+                {
+                    // Login fallito o annullato → esci dall'app
+                    return;
+                }
+            }
+
+            // Avvia la form principale
+            Application.Run(new FrmMain());
         }
     }
 }

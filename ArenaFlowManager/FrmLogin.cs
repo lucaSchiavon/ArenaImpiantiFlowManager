@@ -28,9 +28,11 @@ namespace ArenaFlowManager
         {
             if (TxtUsername.Text == "admin" && TxtPassword.Text == "admin")
             {
-                FrmMain main = new FrmMain();
-                main.Show();
-                this.Hide();
+                //FrmMain main = new FrmMain();
+                //main.Show();
+                //this.Hide();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             else
             {
