@@ -25,8 +25,10 @@ namespace ArenaFlowManager.UserControls
             try
             {
                 InitializeComponent();
+
                 FormName = "Clienti";
-                GrigliaSolaLettura();
+
+                SetCustomPropertiesDataGridView();
 
                 BtnElimina.Visible = false;
                 BtnModifica.Visible = false;
@@ -35,6 +37,8 @@ namespace ArenaFlowManager.UserControls
 
                 caricaDati();
                 // Sottoscrivi l'evento: scatta ogni volta che i dati cambiano
+                //importante per gestire la selezione sulla griglia del dato
+                //dopo operazioni di modifica, eliminazione o inserimento
                 dataGridViewClienti.DataBindingComplete += DataGridViewClienti_DataBindingComplete;
             }
             catch (Exception Ex)
@@ -43,18 +47,13 @@ namespace ArenaFlowManager.UserControls
             }
         }
 
-        private void DataGridViewClienti_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            dataGridViewClienti.ClearSelection();
-            dataGridViewClienti.CurrentCell = null; // Rimuove anche il rettangolo del focus
-        }
-
         private void UcClienti_Load(object sender, EventArgs e)
         {
-           
+
         }
 
-       
+
+        #region "gestione della ricerca nella griglia
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
@@ -75,18 +74,13 @@ namespace ArenaFlowManager.UserControls
             TxtRicerca.Text = "";
             var repo = new ClientiRepository();
             var lista = repo.GetAnagraficheClienti(TxtRicerca.Text);
-            //var ListaFiltrata = lista.Select(c => new
-            //{
-            //    c.idAnagraficaCliente,
-            //    c.RagioneSociale,
-            //    c.Comune,
-            //    c.Prov
-            //}).ToList();
+
             bindingSourceClienti.DataSource = lista;
             dataGridViewClienti.DataSource = bindingSourceClienti;
 
             TxtRicerca.Focus();
         }
+
         private void TxtRicerca_KeyUp(object sender, KeyEventArgs e)
         {
             try
@@ -99,6 +93,19 @@ namespace ArenaFlowManager.UserControls
                 MessageBox.Show("Errore nel caricamento dei dati: " + Ex.Message, "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #endregion
+
+
+
+        private void DataGridViewClienti_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dataGridViewClienti.ClearSelection();
+            dataGridViewClienti.CurrentCell = null; // Rimuove anche il rettangolo del focus
+        }
+
+  
+       
         private void dataGridViewClienti_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
         {
             //mi salvo il rowindex a livello pubblico
@@ -170,57 +177,60 @@ namespace ArenaFlowManager.UserControls
             }
         }
 
-        //private void dataGridViewClienti_SelectionChanged(object sender, EventArgs e)
-        //{
-        //    if (dataGridViewClienti.SelectedRows.Count == 0 && dataGridViewClienti.SelectedCells.Count == 0)
-        //    {
-        //        SvuotaDettagli(); // Un metodo che svuota le textbox a destra
-        //        return;
-        //    }
+       
+
+        private void BtnModifica_Click(object sender, EventArgs e)
+        {
+            var CurrentIdCustomerSelectedInGrid = Convert.ToInt32(dataGridViewClienti.CurrentCell.OwningRow.Cells["idAnagraficaCliente"].Value);
+
+            if (CurrentIdCustomerSelectedInGrid >= 0)
+            {
+
+                var FormModificaCliente = new FrmModificaClente(CurrentIdCustomerSelectedInGrid);
+                if (FormModificaCliente.ShowDialog() == DialogResult.OK)
+                {
+                    int idToSelect = FormModificaCliente.IdClienteSalvato;
+                    caricaDati();
+                    SelezionaRigaCliente(idToSelect);
+                    if (dataGridViewClienti.CurrentRow != null)
+                    {
+                        dataGridViewClienti_SelectionChanged(dataGridViewClienti, EventArgs.Empty);
+                    }
+                }
+            }
 
 
-        //    var cliente = dataGridViewClienti.CurrentRow.DataBoundItem as Models.Clienti.AnagraficheClientiDto;
-        //    if (cliente == null)
-        //        return;
+        }
 
-        //    //CurrentIdCustomerSelectedInGrid = cliente.idAnagraficaCliente;
+        private void BtnElimina_Click(object sender, EventArgs e)
+        {
+            var CurrentIdCustomerSelectedInGrid = Convert.ToInt32(dataGridViewClienti.CurrentCell.OwningRow.Cells["idAnagraficaCliente"].Value);
 
-        //    TxtRagSoc.Text = cliente.RagioneSociale;
-        //    TxtPrivato.Text = cliente.Privato ? "Sì" : "No";
-        //    //TxtCodice.Text = cliente.CodiceCliente;
-        //    TxtCategoria.Text = cliente.CategoriaCliente;
-        //    TxtStato.Text = cliente.StatoAnagrafica;
+            if (CurrentIdCustomerSelectedInGrid >= 0)
+            {
+                var repo = new ClientiRepository();
+                var Cliente = repo.GetAnagraficaClienti(CurrentIdCustomerSelectedInGrid)[0];
 
-        //    TxtIndirizzo.Text = cliente.Indirizzo;
-        //    TxtCap.Text = cliente.CAP;
-        //    TxtComune.Text = cliente.Comune;
-        //    TxtProvincia.Text = cliente.Prov;
-        //    TxtPaese.Text = cliente.Paese;
-        //    TxtPIva.Text = cliente.PIVA;
-        //    TxtCodFisc.Text = cliente.CodiceFiscale;
-        //    TxtContatto.Text = cliente.Contatto;
+                if (MessageBox.Show($"Sei sicuro di voler eliminare il cliente con ragione sociale: {Cliente.RagioneSociale}?", "Conferma Eliminazione", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
 
-        //    TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
-        //    TxtScissionepagamenti.Text = cliente.ScissionePagamenti ? "Sì" : "No";
-        //    //todo:da bindare
-        //    TxtConsensoPrivacy.Text = "NO";
+                    repo.EliminaCliente(CurrentIdCustomerSelectedInGrid);
+                    caricaDati();
+                }
+                ;
+            }
+        }
 
-        //    TxtCodDest.Text = cliente.CodiceDestinatario;
-        //    TxtPecInvioFattura.Text = cliente.PECFatturaElettronica;
-        //    TxtPagamento.Text = cliente.Pagamento;
-        //    TxtBanca.Text = cliente.Banca;
-        //    TxtIban.Text = cliente.IBAN;
-        //    TxtRegimeIva.Text = cliente.DescrizioneRegimeIVA;
+        private void BtnGestioneContatti_Click(object sender, EventArgs e)
+        {
+            var CurrentIdCustomerSelectedInGrid = Convert.ToInt32(dataGridViewClienti.CurrentCell.OwningRow.Cells["idAnagraficaCliente"].Value);
 
-
-        //    // Booleano → Sì/No
-        //    //TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
-
-        //    BtnElimina.Enabled = true;
-        //    BtnModifica.Enabled = true;
-        //    BtnGestioneContatti.Enabled = true;
-        //    BtnDestinazioniDiverse.Enabled = true;
-        //}
+            if (CurrentIdCustomerSelectedInGrid >= 0)
+            {
+                var FrmContatti = new FrmContatti(CurrentIdCustomerSelectedInGrid);
+                FrmContatti.ShowDialog();            
+            }
+        }
 
         private void dataGridViewClienti_SelectionChanged(object sender, EventArgs e)
         {
@@ -276,7 +286,9 @@ namespace ArenaFlowManager.UserControls
             BtnDestinazioniDiverse.Visible = true;
         }
 
-       
+
+
+        #region "routines private"
 
         private void SvuotaDettagli()
         {
@@ -316,7 +328,8 @@ namespace ArenaFlowManager.UserControls
             BtnDestinazioniDiverse.Visible = false;
         }
 
-        private void GrigliaSolaLettura()
+        //todo:da spostare nello user control base, così da poterlo riutilizzare in tutti gli user control che hanno una griglia dati
+        private void SetCustomPropertiesDataGridView()
         {
             //foreach (DataGridViewColumn col in dataGridViewClienti.Columns)
             //{
@@ -355,77 +368,14 @@ namespace ArenaFlowManager.UserControls
             // Carica i dati dei clienti tramite ClientiRepository e li visualizza nella DataGridView tramite bindingSourceClienti
             var repo = new ClientiRepository();
             var lista = repo.GetAnagraficheClienti(TxtRicerca.Text);
-           
+
             bindingSourceClienti.DataSource = lista;
             dataGridViewClienti.DataSource = bindingSourceClienti;
 
         }
 
-        private void BtnGestioneContatti_Click(object sender, EventArgs e)
-        {
-            var CurrentIdCustomerSelectedInGrid = Convert.ToInt32(dataGridViewClienti.CurrentCell.OwningRow.Cells["idAnagraficaCliente"].Value);
 
-            if (CurrentIdCustomerSelectedInGrid >= 0)
-            {
 
-                var FrmContatti = new FrmContatti(CurrentIdCustomerSelectedInGrid);
-
-                FrmContatti.ShowDialog();
-                //if (FrmContatti.ShowDialog() == DialogResult.OK)
-                //{
-                //    int idToSelect = FormModificaCliente.IdClienteSalvato;
-                //    caricaDati();
-                //    SelezionaRigaCliente(idToSelect);
-                //}
-            }
-        }
-
-        private void BtnModifica_Click(object sender, EventArgs e)
-        {
-            var CurrentIdCustomerSelectedInGrid = Convert.ToInt32(dataGridViewClienti.CurrentCell.OwningRow.Cells["idAnagraficaCliente"].Value);
-            
-            if (CurrentIdCustomerSelectedInGrid >= 0)
-            {
-                
-                var FormModificaCliente = new FrmModificaClente(CurrentIdCustomerSelectedInGrid);
-                if (FormModificaCliente.ShowDialog() == DialogResult.OK)
-                {
-                    int idToSelect = FormModificaCliente.IdClienteSalvato;
-                    caricaDati();
-                    SelezionaRigaCliente(idToSelect);
-                    if (dataGridViewClienti.CurrentRow != null)
-                    {
-                        dataGridViewClienti_SelectionChanged(dataGridViewClienti, EventArgs.Empty);
-                    }
-                }
-            }
-
-       
-        }
-        //private void SelezionaRigaCliente(int idCliente)
-        //{
-        //    foreach (DataGridViewRow row in dataGridViewClienti.Rows)
-        //    {
-        //        if (row.Cells["idAnagraficaCliente"].Value != null && Convert.ToInt32(row.Cells["idAnagraficaCliente"].Value) == idCliente)
-        //        {
-        //            row.Selected = true;
-        //            // Imposta la cella corrente (sposta la freccia nera)
-        //            //dataGridViewClienti.CurrentCell = row.Cells[0];
-        //            // Trova la prima colonna visibile
-        //            DataGridViewColumn colVisibile = dataGridViewClienti.Columns
-        //                .Cast<DataGridViewColumn>()
-        //                .FirstOrDefault(c => c.Visible);
-
-        //            if (colVisibile != null)
-        //            {
-        //                dataGridViewClienti.CurrentCell = row.Cells[colVisibile.Index];
-        //            }
-        //            // Scrolla fino alla riga
-        //            dataGridViewClienti.FirstDisplayedScrollingRowIndex = row.Index;
-        //            break;
-        //        }
-        //    }
-        //}
 
         private void SelezionaRigaCliente(int idCliente)
         {
@@ -457,22 +407,9 @@ namespace ArenaFlowManager.UserControls
             }
         }
 
-        private void BtnElimina_Click(object sender, EventArgs e)
-        {
-            var CurrentIdCustomerSelectedInGrid = Convert.ToInt32(dataGridViewClienti.CurrentCell.OwningRow.Cells["idAnagraficaCliente"].Value);
+        #endregion
 
-            if (CurrentIdCustomerSelectedInGrid >= 0)
-            {
-                var repo = new ClientiRepository();
-                var Cliente = repo.GetAnagraficaClienti(CurrentIdCustomerSelectedInGrid)[0];
 
-                if (MessageBox.Show($"Sei sicuro di voler eliminare il cliente con ragione sociale: {Cliente.RagioneSociale}?", "Conferma Eliminazione", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                        {
-                            
-                            repo.EliminaCliente(CurrentIdCustomerSelectedInGrid);
-                            caricaDati();
-                        };
-            }
-        }
+
     }
 }

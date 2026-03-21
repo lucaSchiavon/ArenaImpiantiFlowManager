@@ -40,9 +40,6 @@ namespace ArenaFlowManager
             }
         }
 
-        //private void TxtUsername_KeyDown(object sender, KeyEventArgs e)
-        //{
-
-        //}
+        
     }
 }

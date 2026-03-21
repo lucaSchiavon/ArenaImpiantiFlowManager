@@ -24,7 +24,8 @@ namespace ArenaFlowManager
 
         private void TStripBtnNuovo_Click(object sender, EventArgs e) 
         {
-            //var btn = TStripBtnNuovo;
+            //istanzia e posiziona il menu popup sotto il bottone nuovo della barra degli strumenti
+
             ToolStripButton btn = sender as ToolStripButton;
 
             // Converte il punto in coordinate schermo
@@ -51,24 +52,30 @@ namespace ArenaFlowManager
             LblFormName.Text = moduloClienti.FormName;        
         }
 
-        private void ApriModulo(UserControl modulo)
-        {
-           
-            // Trova l'eventuale UserControl già presente e rimuovilo
-           var VecchioModulo = PnlMainContent.Controls.OfType<UserControl>().FirstOrDefault();
-            if (VecchioModulo != null)
+
+        #region "routines private"
+
+            private void ApriModulo(UserControl modulo)
             {
-                PnlMainContent.Controls.Remove(VecchioModulo);
-                VecchioModulo.Dispose();
+
+                // Trova l'eventuale UserControl già presente e rimuovilo
+                var VecchioModulo = PnlMainContent.Controls.OfType<UserControl>().FirstOrDefault();
+                if (VecchioModulo != null)
+                {
+                    PnlMainContent.Controls.Remove(VecchioModulo);
+                    VecchioModulo.Dispose();
+                }
+
+
+                modulo.Dock = DockStyle.Fill;
+                PnlMainContent.SuspendLayout();
+                PnlMainContent.Controls.Add(modulo);
+                //modulo.SendToBack();
+                PnlMainContent.ResumeLayout();
             }
 
+        #endregion
 
-            modulo.Dock = DockStyle.Fill;
-            PnlMainContent.SuspendLayout();
-            PnlMainContent.Controls.Add(modulo);
-            //modulo.SendToBack();
-            PnlMainContent.ResumeLayout();
-        }
-       
+
     }
 }
