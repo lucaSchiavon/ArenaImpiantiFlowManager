@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmModificaClente));
             this.panel1 = new System.Windows.Forms.Panel();
             this.LblTitoloForm = new System.Windows.Forms.Label();
@@ -82,6 +83,7 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.CboRegimeIva = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -90,6 +92,7 @@
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -99,7 +102,7 @@
             this.panel1.ForeColor = System.Drawing.SystemColors.Window;
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(559, 52);
+            this.panel1.Size = new System.Drawing.Size(595, 52);
             this.panel1.TabIndex = 4;
             // 
             // LblTitoloForm
@@ -109,7 +112,7 @@
             this.LblTitoloForm.ForeColor = System.Drawing.Color.White;
             this.LblTitoloForm.Location = new System.Drawing.Point(0, 0);
             this.LblTitoloForm.Name = "LblTitoloForm";
-            this.LblTitoloForm.Size = new System.Drawing.Size(559, 52);
+            this.LblTitoloForm.Size = new System.Drawing.Size(595, 52);
             this.LblTitoloForm.TabIndex = 0;
             this.LblTitoloForm.Text = "Gestione Anagrafica Clienti";
             this.LblTitoloForm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -123,13 +126,13 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 712);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(559, 55);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(595, 55);
             this.flowLayoutPanel1.TabIndex = 10;
             // 
             // BtnSalva
             // 
             this.BtnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalva.Location = new System.Drawing.Point(481, 8);
+            this.BtnSalva.Location = new System.Drawing.Point(517, 8);
             this.BtnSalva.Name = "BtnSalva";
             this.BtnSalva.Size = new System.Drawing.Size(75, 39);
             this.BtnSalva.TabIndex = 0;
@@ -140,7 +143,7 @@
             // BtnEsciSenzaSalvare
             // 
             this.BtnEsciSenzaSalvare.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(325, 8);
+            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(361, 8);
             this.BtnEsciSenzaSalvare.Name = "BtnEsciSenzaSalvare";
             this.BtnEsciSenzaSalvare.Size = new System.Drawing.Size(150, 39);
             this.BtnEsciSenzaSalvare.TabIndex = 1;
@@ -161,14 +164,14 @@
             this.panel2.Controls.Add(this.label8);
             this.panel2.Location = new System.Drawing.Point(12, 70);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(559, 118);
+            this.panel2.Size = new System.Drawing.Size(595, 118);
             this.panel2.TabIndex = 11;
             // 
             // CboStato
             // 
             this.CboStato.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CboStato.FormattingEnabled = true;
-            this.CboStato.Location = new System.Drawing.Point(395, 75);
+            this.CboStato.Location = new System.Drawing.Point(419, 75);
             this.CboStato.Name = "CboStato";
             this.CboStato.Size = new System.Drawing.Size(150, 26);
             this.CboStato.TabIndex = 24;
@@ -178,7 +181,7 @@
             // 
             this.label3.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(347, 74);
+            this.label3.Location = new System.Drawing.Point(371, 74);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 26);
             this.label3.TabIndex = 27;
@@ -210,7 +213,7 @@
             // 
             this.CboPrivato.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CboPrivato.FormattingEnabled = true;
-            this.CboPrivato.Location = new System.Drawing.Point(476, 41);
+            this.CboPrivato.Location = new System.Drawing.Point(500, 41);
             this.CboPrivato.Name = "CboPrivato";
             this.CboPrivato.Size = new System.Drawing.Size(69, 26);
             this.CboPrivato.TabIndex = 22;
@@ -220,7 +223,7 @@
             // 
             this.label1.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(476, 17);
+            this.label1.Location = new System.Drawing.Point(500, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 28);
             this.label1.TabIndex = 25;
@@ -269,7 +272,7 @@
             this.panel3.Controls.Add(this.label5);
             this.panel3.Location = new System.Drawing.Point(12, 194);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(559, 186);
+            this.panel3.Size = new System.Drawing.Size(595, 186);
             this.panel3.TabIndex = 28;
             // 
             // TxtContatto
@@ -277,13 +280,13 @@
             this.TxtContatto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtContatto.Location = new System.Drawing.Point(91, 141);
             this.TxtContatto.Name = "TxtContatto";
-            this.TxtContatto.Size = new System.Drawing.Size(454, 24);
+            this.TxtContatto.Size = new System.Drawing.Size(478, 24);
             this.TxtContatto.TabIndex = 41;
             // 
             // TxtCodFisc
             // 
             this.TxtCodFisc.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtCodFisc.Location = new System.Drawing.Point(351, 111);
+            this.TxtCodFisc.Location = new System.Drawing.Point(377, 111);
             this.TxtCodFisc.Name = "TxtCodFisc";
             this.TxtCodFisc.Size = new System.Drawing.Size(192, 24);
             this.TxtCodFisc.TabIndex = 40;
@@ -311,7 +314,7 @@
             // 
             this.label11.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(271, 111);
+            this.label11.Location = new System.Drawing.Point(297, 111);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 24);
             this.label11.TabIndex = 37;
@@ -333,7 +336,7 @@
             // 
             this.CboPaese.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CboPaese.FormattingEnabled = true;
-            this.CboPaese.Location = new System.Drawing.Point(374, 79);
+            this.CboPaese.Location = new System.Drawing.Point(400, 79);
             this.CboPaese.Name = "CboPaese";
             this.CboPaese.Size = new System.Drawing.Size(169, 26);
             this.CboPaese.TabIndex = 35;
@@ -351,7 +354,7 @@
             // 
             this.label9.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(305, 79);
+            this.label9.Location = new System.Drawing.Point(331, 79);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(84, 26);
             this.label9.TabIndex = 33;
@@ -372,7 +375,7 @@
             // TxtComune
             // 
             this.TxtComune.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtComune.Location = new System.Drawing.Point(302, 49);
+            this.TxtComune.Location = new System.Drawing.Point(326, 49);
             this.TxtComune.Name = "TxtComune";
             this.TxtComune.Size = new System.Drawing.Size(243, 24);
             this.TxtComune.TabIndex = 31;
@@ -390,7 +393,7 @@
             this.TxtIndirizzo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtIndirizzo.Location = new System.Drawing.Point(91, 19);
             this.TxtIndirizzo.Name = "TxtIndirizzo";
-            this.TxtIndirizzo.Size = new System.Drawing.Size(454, 24);
+            this.TxtIndirizzo.Size = new System.Drawing.Size(478, 24);
             this.TxtIndirizzo.TabIndex = 28;
             // 
             // label7
@@ -408,7 +411,7 @@
             // 
             this.label4.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(229, 49);
+            this.label4.Location = new System.Drawing.Point(253, 49);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 24);
             this.label4.TabIndex = 27;
@@ -437,7 +440,7 @@
             this.panel4.Controls.Add(this.label17);
             this.panel4.Location = new System.Drawing.Point(12, 386);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(559, 91);
+            this.panel4.Size = new System.Drawing.Size(595, 91);
             this.panel4.TabIndex = 42;
             // 
             // CboConsensoPrivacy
@@ -464,7 +467,7 @@
             // 
             this.CboScissionePagamenti.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CboScissionePagamenti.FormattingEnabled = true;
-            this.CboScissionePagamenti.Location = new System.Drawing.Point(474, 16);
+            this.CboScissionePagamenti.Location = new System.Drawing.Point(500, 16);
             this.CboScissionePagamenti.Name = "CboScissionePagamenti";
             this.CboScissionePagamenti.Size = new System.Drawing.Size(69, 26);
             this.CboScissionePagamenti.TabIndex = 43;
@@ -484,7 +487,7 @@
             // 
             this.label16.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(322, 15);
+            this.label16.Location = new System.Drawing.Point(348, 15);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(155, 26);
             this.label16.TabIndex = 33;
@@ -511,13 +514,13 @@
             this.panel5.Controls.Add(this.label21);
             this.panel5.Location = new System.Drawing.Point(12, 483);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(559, 51);
+            this.panel5.Size = new System.Drawing.Size(595, 51);
             this.panel5.TabIndex = 42;
             // 
             // TxtPecInvioFattura
             // 
             this.TxtPecInvioFattura.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtPecInvioFattura.Location = new System.Drawing.Point(325, 14);
+            this.TxtPecInvioFattura.Location = new System.Drawing.Point(351, 14);
             this.TxtPecInvioFattura.Name = "TxtPecInvioFattura";
             this.TxtPecInvioFattura.Size = new System.Drawing.Size(218, 24);
             this.TxtPecInvioFattura.TabIndex = 46;
@@ -526,7 +529,7 @@
             // 
             this.label24.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(196, 14);
+            this.label24.Location = new System.Drawing.Point(222, 14);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(140, 24);
             this.label24.TabIndex = 43;
@@ -563,7 +566,7 @@
             this.panel6.Controls.Add(this.label22);
             this.panel6.Location = new System.Drawing.Point(12, 539);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(559, 112);
+            this.panel6.Size = new System.Drawing.Size(595, 112);
             this.panel6.TabIndex = 42;
             // 
             // TxtIban
@@ -572,7 +575,7 @@
             this.TxtIban.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtIban.Location = new System.Drawing.Point(103, 78);
             this.TxtIban.Name = "TxtIban";
-            this.TxtIban.Size = new System.Drawing.Size(440, 24);
+            this.TxtIban.Size = new System.Drawing.Size(466, 24);
             this.TxtIban.TabIndex = 49;
             // 
             // label15
@@ -592,7 +595,7 @@
             this.CboBanca.FormattingEnabled = true;
             this.CboBanca.Location = new System.Drawing.Point(103, 46);
             this.CboBanca.Name = "CboBanca";
-            this.CboBanca.Size = new System.Drawing.Size(440, 26);
+            this.CboBanca.Size = new System.Drawing.Size(466, 26);
             this.CboBanca.TabIndex = 48;
             this.CboBanca.SelectionChangeCommitted += new System.EventHandler(this.CboBanca_SelectionChangeCommitted);
             // 
@@ -613,7 +616,7 @@
             this.CboPagamento.FormattingEnabled = true;
             this.CboPagamento.Location = new System.Drawing.Point(103, 14);
             this.CboPagamento.Name = "CboPagamento";
-            this.CboPagamento.Size = new System.Drawing.Size(440, 26);
+            this.CboPagamento.Size = new System.Drawing.Size(466, 26);
             this.CboPagamento.TabIndex = 47;
             this.CboPagamento.SelectedIndexChanged += new System.EventHandler(this.CboPagamento_SelectedIndexChanged);
             // 
@@ -635,7 +638,7 @@
             this.panel7.Controls.Add(this.label20);
             this.panel7.Location = new System.Drawing.Point(12, 657);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(559, 49);
+            this.panel7.Size = new System.Drawing.Size(595, 49);
             this.panel7.TabIndex = 43;
             // 
             // CboRegimeIva
@@ -644,7 +647,7 @@
             this.CboRegimeIva.FormattingEnabled = true;
             this.CboRegimeIva.Location = new System.Drawing.Point(103, 13);
             this.CboRegimeIva.Name = "CboRegimeIva";
-            this.CboRegimeIva.Size = new System.Drawing.Size(440, 26);
+            this.CboRegimeIva.Size = new System.Drawing.Size(466, 26);
             this.CboRegimeIva.TabIndex = 50;
             // 
             // label20
@@ -658,11 +661,16 @@
             this.label20.Text = "Regime IVA:";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider1.ContainerControl = this;
+            // 
             // FrmModificaClente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 776);
+            this.ClientSize = new System.Drawing.Size(619, 776);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -691,6 +699,7 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -749,5 +758,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ComboBox CboRegimeIva;
         private System.Windows.Forms.TextBox TxtRagSoc;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

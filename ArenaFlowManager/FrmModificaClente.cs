@@ -16,9 +16,12 @@ namespace ArenaFlowManager
     public partial class FrmModificaClente : Form
     {
         private int _idCliente;
-        private ArenaFlowManager.Models.Clienti.AnagraficaClientiDto _cliente;
         public int IdClienteSalvato { get; private set; }
+        private bool ValidazioniFormCorrette { get; set; } = true;
+        private bool ObbligatorietaCampiFormRispettata { get; set; } = true;
+
         private FormValidatorManager formValidatorManager;
+        private ArenaFlowManager.Models.Clienti.AnagraficaClientiDto _cliente;
         public FrmModificaClente(int idCliente)
         {
             try
@@ -26,7 +29,14 @@ namespace ArenaFlowManager
                 ClientiRepository repo = new ArenaFlowManager.Repositories.ClientiRepository();
                 formValidatorManager = new FormValidatorManager();
                 InitializeComponent();
-                AttachEnterHandlers(this); //aggancia la gestione degli eventi Enter e leave a tutti i campi della maschera
+
+                //todo: spostare in un metodo di inizializzazione generale
+                errorProvider1.SetIconAlignment(TxtCodFisc,ErrorIconAlignment.MiddleRight);
+                errorProvider1.SetIconPadding(TxtCodFisc,2);
+                errorProvider1.SetIconAlignment(TxtPIva, ErrorIconAlignment.MiddleRight);
+                errorProvider1.SetIconPadding(TxtPIva, 2);
+
+                AttachValidationHandlers(this); //aggancia la gestione degli eventi Enter e leave a tutti i campi della maschera
                 _idCliente = idCliente;
 
                 //popola le combo
@@ -110,9 +120,11 @@ namespace ArenaFlowManager
                 }
 
                 //visualizza campi obbligatori
-                bool allValid = formValidatorManager.ValidateRequiredFields(this);
+                //bool allValid = formValidatorManager.ValidateRequiredFields(this);
+                ObbligatorietaCampiFormRispettata= formValidatorManager.ValidateRequiredFields(this);
                 // Mostra o nasconde il bottone Salva
-                BtnSalva.Visible = allValid;
+               // BtnSalva.Visible = allValid;
+                BtnSalva.Visible = ObbligatorietaCampiFormRispettata;
 
                 TxtRagSoc.Focus();
                 
@@ -160,7 +172,7 @@ namespace ArenaFlowManager
                     // Inserimento
                     int newId = repo.InsertCliente(_cliente);
                     IdClienteSalvato = newId;
-                    MessageBox.Show($"Cliente inserito con id: {newId}", "Inserimento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Cliente {_cliente.RagioneSociale} inserito", "Inserimento", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
@@ -170,7 +182,7 @@ namespace ArenaFlowManager
                     _cliente.IdAnagraficaCliente = _idCliente;
                     repo.UpdateCliente(_cliente);
                     IdClienteSalvato = _idCliente;
-                    MessageBox.Show("Cliente aggiornato", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Cliente {_cliente.RagioneSociale} aggiornato", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
@@ -236,96 +248,95 @@ namespace ArenaFlowManager
         }
 
        
-        private void AttachEnterHandlers(Control parent)
+        private void AttachValidationHandlers(Control parent)
         {
             foreach (Control c in parent.Controls)
             {
                 if (c is TextBox || c is ComboBox)
                 {
+                    //eventi per gestire l'obbligatorietà dei campi
                     c.Enter -= RequiredField_Enter; // evita doppie associazioni
                     c.Enter += RequiredField_Enter;
-
+                   
                     c.Leave -= RequiredField_Leave;
                     c.Leave += RequiredField_Leave;
+
+
+                    //eventi per validazione in tempo reale
+                    c.Validating -= Field_Validating; 
+                    c.Validating += Field_Validating;
+
+                    //c.TextChanged -= Field_TextChanged;
+                    //c.TextChanged += Field_TextChanged;
                 }
 
                 // Ricorsione per pannelli, groupbox, tabpage, ecc.
                 if (c.HasChildren)
-                    AttachEnterHandlers(c);
+                    AttachValidationHandlers(c);
             }
         }
+
+
+        private void Field_Validating(object sender, CancelEventArgs e)
+        {
+            switch (((Control)sender).Name)
+            {
+                case "TxtCodFisc":
+                    string cf = TxtCodFisc.Text;
+
+                    if (!formValidatorManager.IsCodiceFiscaleValid(cf))
+                    {
+                        errorProvider1.SetError(TxtCodFisc, "Codice fiscale non valido");
+                        ValidazioniFormCorrette = false;
+                        //e.Cancel = true; // impedisce di uscire dal controllo
+                    }
+                    else
+                    {
+                        errorProvider1.SetError(TxtCodFisc, "");
+                        ValidazioniFormCorrette = true;
+                    }
+                    //ValidateCodiceFiscale(sender, e);
+                    break;
+                case "TxtPIva":
+                    string piva = TxtPIva.Text;
+
+                    if (!formValidatorManager.IsPartitaIvaValidWithRegex(piva))
+                    {
+                        errorProvider1.SetError(TxtPIva, "PIVA non valida");
+                        ValidazioniFormCorrette = false;
+                        //e.Cancel = true; // impedisce di uscire dal controllo
+                    }
+                    else
+                    {
+                        errorProvider1.SetError(TxtPIva, "");
+                        ValidazioniFormCorrette = true;
+                    }
+                    break;
+                    //Aggiungi altri casi per altri campi se necessario
+            }
+
+            //BtnSalva.Visible = allValid && ValidazioniFormCorrette;
+            BtnSalva.Visible = ObbligatorietaCampiFormRispettata && ValidazioniFormCorrette;
+        }
+        //private void Field_TextChanged(object sender, EventArgs e)
+        //{
+        //    switch (((Control)sender).Name)
+        //    {
+        //        case "TxtCodFisc":
+        //            if (formValidatorManager.IsCodiceFiscaleValid(TxtCodFisc.Text))
+        //                errorProvider1.SetError(TxtCodFisc, "");
+        //            ValidazioniFormCorrette = true;
+        //            break;
+        //            //case "TxtPIva":
+        //            //    ValidatePartitaIva(sender, e);
+        //            //    break;
+        //            // Aggiungi altri casi per altri campi se necessario
+        //    }
+        //}
+
+
+
         
-
-        //private bool ValidateRequiredFields(Control parent)
-        //{
-        //    bool isValid = true;
-
-        //    foreach (Control c in parent.Controls)
-        //    {
-        //        // TEXTBOX
-        //        if (c is TextBox tb && (string)tb.Tag == "required")
-        //        {
-        //            if (string.IsNullOrWhiteSpace(tb.Text))
-        //            {
-        //                MarkInvalid(tb);
-        //                isValid = false;
-        //            }
-        //            else
-        //            {
-        //                ClearInvalid(tb);
-        //            }
-        //        }
-
-        //        // COMBOBOX
-        //        if (c is ComboBox cb && (string)cb.Tag == "required")
-        //        {
-        //            //if (cb.SelectedIndex < 0 || string.IsNullOrWhiteSpace(cb.Text))
-        //            //{
-        //            if (cb.SelectedValue.ToString() == "-")
-        //            {
-        //                MarkInvalid(cb);
-        //                isValid = false;
-        //            }
-        //            else
-        //            {
-        //                ClearInvalid(cb);
-        //            }
-        //        }
-
-        //        // Ricorsione per pannelli, groupbox, tabpage, ecc.
-        //        if (c.HasChildren)
-        //        {
-        //            if (!ValidateRequiredFields(c))
-        //                isValid = false;
-        //        }
-        //    }
-
-        //    return isValid;
-        //}
-        //private void MarkInvalid(Control c)
-        //{
-        //    c.BackColor = Color.MistyRose;
-        //    c.ForeColor = Color.DarkRed;
-
-        //    // Bordo rosso (solo se il controllo lo supporta)
-        //    if (c is TextBox || c is ComboBox)
-        //    {
-        //        c.Padding = new Padding(1);
-        //        c.BackColor = Color.MistyRose;
-        //    }
-
-        //    RequiredToolTip.SetToolTip(c, "Campo obbligatorio");
-        //}
-
-        //private void ClearInvalid(Control c)
-        //{
-        //    c.BackColor = SystemColors.Window;
-        //    c.ForeColor = SystemColors.ControlText;
-        //    c.Padding = new Padding(0);
-
-        //    RequiredToolTip.SetToolTip(c, "");
-        //}
-
         private void RequiredField_Enter(object sender, EventArgs e)
         {
             if (sender is Control c)
@@ -342,10 +353,14 @@ namespace ArenaFlowManager
         private void RequiredField_Leave(object sender, EventArgs e)
         {
             // Validazione completa del form
-            bool allValid = formValidatorManager.ValidateRequiredFields(this);
+            //bool allValid = formValidatorManager.ValidateRequiredFields(this);
+            ObbligatorietaCampiFormRispettata = formValidatorManager.ValidateRequiredFields(this);
 
             // Mostra o nasconde il bottone Salva
-            BtnSalva.Visible = allValid;
+            //abilita il bottone salva solo se tutti i campi obbligatori sono valorizzati
+            //e le validazioni specifiche (es. codice fiscale) sono corrette
+            //BtnSalva.Visible = allValid && ValidazioniFormCorrette;
+            BtnSalva.Visible = ObbligatorietaCampiFormRispettata && ValidazioniFormCorrette;
         }
     }
 }
