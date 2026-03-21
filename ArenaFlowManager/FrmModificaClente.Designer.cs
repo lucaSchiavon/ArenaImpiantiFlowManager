@@ -618,7 +618,7 @@
             this.CboPagamento.Name = "CboPagamento";
             this.CboPagamento.Size = new System.Drawing.Size(466, 26);
             this.CboPagamento.TabIndex = 47;
-            this.CboPagamento.SelectedIndexChanged += new System.EventHandler(this.CboPagamento_SelectedIndexChanged);
+            //this.CboPagamento.SelectedIndexChanged += new System.EventHandler(this.CboPagamento_SelectedIndexChanged);
             // 
             // label22
             // 
