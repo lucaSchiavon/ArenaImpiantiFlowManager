@@ -1,4 +1,5 @@
-﻿using ArenaFlowManager.Models;
+﻿using ArenaFlowManager.Managers;
+using ArenaFlowManager.Models;
 using ArenaFlowManager.Models.Clienti;
 using ArenaFlowManager.Repositories;
 using System;
@@ -20,6 +21,8 @@ namespace ArenaFlowManager
         private int IdCliente { get; set; }
         private int IdContCliente { get; set; }
         public bool DaInserimento { get; private set; }
+
+        private FormValidatorManager formValidatorManager;
         public FrmContatti(int idCliente)
         {
             try
@@ -27,8 +30,10 @@ namespace ArenaFlowManager
                 IdCliente = idCliente;
 
                 ContattiRepository repo = new ArenaFlowManager.Repositories.ContattiRepository();
+                formValidatorManager = new FormValidatorManager();
 
                 InitializeComponent();
+                AttachEnterHandlers(this); //aggancia la gestione degli eventi Enter e leave a tutti i campi della maschera
                 //nsaconde per ora la sezione di inserimento/modifica contatti e ridimensiona la form per mostrare solo la griglia
                 this.Height = 527;
 
@@ -114,6 +119,16 @@ namespace ArenaFlowManager
             this.ControlBox = false; // Disabilita i pulsanti di chiusura, minimizzazione e massimizzazione
             BtnModifica.Visible = false;
             BtnElimina.Visible = false;
+
+            //congela la griglia per evitare che l'utente possa selezionare un altro contatto durante la modifica
+            dataGridViewContatti.Enabled = false;
+
+            //visualizza campi obbligatori
+            bool allValid = formValidatorManager.ValidateRequiredFields(this);
+            // Mostra o nasconde il bottone Salva
+            BtnSalva.Visible = allValid;
+
+            CboTipo.Focus();
         }
 
         private void BtnModifica_Click(object sender, EventArgs e)
@@ -144,6 +159,16 @@ namespace ArenaFlowManager
                 BtnElimina.Visible = false;
                 BtnNuovo.Visible = false;
                 this.ControlBox = false; // Disabilita i pulsanti di chiusura, minimizzazione e massimizzazione
+
+                //congela la griglia per evitare che l'utente possa selezionare un altro contatto durante la modifica
+                dataGridViewContatti.Enabled = false;
+
+                //visualizza campi obbligatori
+                bool allValid = formValidatorManager.ValidateRequiredFields(this);
+                // Mostra o nasconde il bottone Salva
+                BtnSalva.Visible = allValid;
+
+                CboTipo.Focus();
             }
 
         }
@@ -168,9 +193,18 @@ namespace ArenaFlowManager
                    
                     // Inserimento
                     int newId = repo.InsertContatto(Contatto);
-                    MessageBox.Show($"Contatto inserito con id: {newId}", "Inserimento", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    MessageBox.Show($"Contatto inserito", "Inserimento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //this.DialogResult = DialogResult.OK;
+                    //this.Close();
+                    //todo:aggiornare la griglia
+                 
+                    PulisciForm();
+                    this.Height = 527;
+                    this.ControlBox = true;
+                    dataGridViewContatti.Enabled = true;
+
+                    CaricaDati(IdCliente);
+                    SelezionaRigaContatto(newId);
                 }
                 else
                 {
@@ -181,13 +215,24 @@ namespace ArenaFlowManager
                         Contatto.IdContattoCliente = this.IdContCliente; //todo:mettere campo idcontatto cliente
                         // Aggiornamento              
                         repo.UpdateContatto(Contatto);
-              
-                        //MessageBox.Show("Contatto aggiornato", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        MessageBox.Show("Contatto aggiornato", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         //todo:aggiornare la griglia
+
+                        PulisciForm();
+                        this.Height = 527;
+                        this.ControlBox = true;
+                        dataGridViewContatti.Enabled = true;
+
+                        CaricaDati(IdCliente);
+                        SelezionaRigaContatto(this.IdContCliente);
                     }
                        
                 }
- 
+                BtnElimina.Visible = true;
+                BtnModifica.Visible = true;
+                BtnNuovo.Visible = true;
+
             }
             catch (Exception ex)
             {
@@ -247,8 +292,22 @@ namespace ArenaFlowManager
 
         private void BtnEsciSenzaSalvare_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            PulisciForm();
+            this.Height = 527;
+            this.ControlBox = true;
+            dataGridViewContatti.Enabled = true;
+
+            BtnElimina.Visible = true;
+            BtnModifica.Visible = true;
+            BtnNuovo.Visible = true;
+            //this.DialogResult = DialogResult.OK;
+            //this.Close();
+        }
+        private void PulisciForm()
+        {
+            CboTipo.SelectedValue = "-";
+            TxtContatto.Text = string.Empty;
+            TxtNote.Text = string.Empty;
         }
 
         private void dataGridViewContatti_SelectionChanged(object sender, EventArgs e)
@@ -264,5 +323,108 @@ namespace ArenaFlowManager
 
             this.Height = 527;
         }
+
+        private void dataGridViewContatti_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            BtnElimina.Visible = true;
+            BtnModifica.Visible = true;
+            BtnNuovo.Visible = true;
+
+            this.Height = 527;
+
+        }
+
+        private void BtnElimina_Click(object sender, EventArgs e)
+        {
+            var CurrentIdContattoSelectedInGrid = Convert.ToInt32(dataGridViewContatti.CurrentCell.OwningRow.Cells["idContattoCliente"].Value);
+
+            if (CurrentIdContattoSelectedInGrid >= 0)
+            {
+                var repo = new ContattiRepository();
+                var Contatto = repo.GetContatto(CurrentIdContattoSelectedInGrid)[0];
+
+                if (MessageBox.Show($"Sei sicuro di voler eliminare il contatto : {Contatto.Contatto}?", "Conferma Eliminazione", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+
+                    repo.EliminaContatto(CurrentIdContattoSelectedInGrid);
+
+                    CaricaDati(IdCliente);
+                }
+                ;
+            }
+        }
+
+        private void SelezionaRigaContatto(int idContatto)
+        {
+            // Deseleziona tutto prima di iniziare
+            dataGridViewContatti.ClearSelection();
+
+            foreach (DataGridViewRow row in dataGridViewContatti.Rows)
+            {
+                if (row.Cells["idContattoCliente"].Value != null &&
+                    Convert.ToInt32(row.Cells["idContattoCliente"].Value) == idContatto)
+                {
+                    // Trovata!
+                    row.Selected = true;
+
+                    // Troviamo la prima colonna visibile
+                    var colVisibile = dataGridViewContatti.Columns.Cast<DataGridViewColumn>()
+                                        .FirstOrDefault(c => c.Visible);
+
+                    if (colVisibile != null)
+                    {
+                        // Impostare la CurrentCell è fondamentale, ma facciamolo con cautela
+                        dataGridViewContatti.CurrentCell = row.Cells[colVisibile.Index];
+                    }
+
+                    // Scroll automatico
+                    dataGridViewContatti.FirstDisplayedScrollingRowIndex = row.Index;
+                    return; // Esci subito dopo aver trovato il cliente
+                }
+            }
+        }
+
+        private void AttachEnterHandlers(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                if (c is TextBox || c is ComboBox)
+                {
+                    c.Enter -= RequiredField_Enter; // evita doppie associazioni
+                    c.Enter += RequiredField_Enter;
+
+                    c.Leave -= RequiredField_Leave;
+                    c.Leave += RequiredField_Leave;
+                }
+
+                // Ricorsione per pannelli, groupbox, tabpage, ecc.
+                if (c.HasChildren)
+                    AttachEnterHandlers(c);
+            }
+        }
+
+        private void RequiredField_Enter(object sender, EventArgs e)
+        {
+            if (sender is Control c)
+            {
+                // Ripristina colori normali quando l’utente entra nel campo
+                c.BackColor = SystemColors.Window;
+                c.ForeColor = SystemColors.ControlText;
+                c.Padding = new Padding(0);
+
+                formValidatorManager.RequiredToolTip.SetToolTip(c, "");
+            }
+        }
+
+        private void RequiredField_Leave(object sender, EventArgs e)
+        {
+            // Validazione completa del form
+            bool allValid = formValidatorManager.ValidateRequiredFields(this);
+
+            // Mostra o nasconde il bottone Salva
+            BtnSalva.Visible = allValid;
+        }
+
+
     }
 }

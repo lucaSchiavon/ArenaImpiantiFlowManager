@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon %281%29.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -69,6 +72,7 @@
     <Compile Include="FrmModificaClenteTemp.Designer.cs">
       <DependentUpon>FrmModificaClenteTemp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Managers\FormValidatorManager.cs" />
     <Compile Include="Models\Clienti\AnagraficaClienti_Contatto.cs" />
     <Compile Include="Models\Clienti\AnagraficaClientiDto.cs" />
     <Compile Include="Models\Clienti\AnagraficheClientiDto.cs" />
@@ -159,6 +163,8 @@
   <ItemGroup>
     <None Include="Resources\Schedulatore.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="favicon %281%29.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

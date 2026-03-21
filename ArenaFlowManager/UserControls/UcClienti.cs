@@ -28,10 +28,10 @@ namespace ArenaFlowManager.UserControls
                 FormName = "Clienti";
                 GrigliaSolaLettura();
 
-                BtnElimina.Enabled = false;
-                BtnModifica.Enabled = false;
-                BtnGestioneContatti.Enabled = false;
-                BtnDestinazioniDiverse.Enabled = false;
+                BtnElimina.Visible = false;
+                BtnModifica.Visible = false;
+                BtnGestioneContatti.Visible = false;
+                BtnDestinazioniDiverse.Visible = false;
 
                 caricaDati();
                 // Sottoscrivi l'evento: scatta ogni volta che i dati cambiano
@@ -270,63 +270,13 @@ namespace ArenaFlowManager.UserControls
             TxtRegimeIva.Text = cliente.DescrizioneRegimeIVA;
 
 
-            BtnElimina.Enabled = true;
-            BtnModifica.Enabled = true;
-            BtnGestioneContatti.Enabled = true;
-            BtnDestinazioniDiverse.Enabled = true;
+            BtnElimina.Visible = true;
+            BtnModifica.Visible = true;
+            BtnGestioneContatti.Visible = true;
+            BtnDestinazioniDiverse.Visible = true;
         }
 
-        //private void dataGridViewClienti_SelectionChanged(object sender, EventArgs e)
-        //{
-        //    if (dataGridViewClienti.SelectedRows.Count == 0 && dataGridViewClienti.SelectedCells.Count == 0)
-        //    {
-        //        SvuotaDettagli(); // Un metodo che svuota le textbox a destra
-        //        return;
-        //    }
-
-
-        //    var cliente = dataGridViewClienti.CurrentRow.DataBoundItem as Models.Clienti.AnagraficheClientiDto;
-        //    if (cliente == null)
-        //        return;
-
-        //    //CurrentIdCustomerSelectedInGrid = cliente.idAnagraficaCliente;
-
-        //    TxtRagSoc.Text = cliente.RagioneSociale;
-        //    TxtPrivato.Text = cliente.Privato ? "Sì" : "No";
-        //    //TxtCodice.Text = cliente.CodiceCliente;
-        //    TxtCategoria.Text = cliente.CategoriaCliente;
-        //    TxtStato.Text = cliente.StatoAnagrafica;
-
-        //    TxtIndirizzo.Text = cliente.Indirizzo;
-        //    TxtCap.Text = cliente.CAP;
-        //    TxtComune.Text = cliente.Comune;
-        //    TxtProvincia.Text = cliente.Prov;
-        //    TxtPaese.Text = cliente.Paese;
-        //    TxtPIva.Text = cliente.PIVA;
-        //    TxtCodFisc.Text = cliente.CodiceFiscale;
-        //    TxtContatto.Text = cliente.Contatto;
-
-        //    TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
-        //    TxtScissionepagamenti.Text = cliente.ScissionePagamenti ? "Sì" : "No";
-        //    //todo:da bindare
-        //    TxtConsensoPrivacy.Text = "NO";
-
-        //    TxtCodDest.Text = cliente.CodiceDestinatario;
-        //    TxtPecInvioFattura.Text = cliente.PECFatturaElettronica;
-        //    TxtPagamento.Text = cliente.Pagamento;
-        //    TxtBanca.Text = cliente.Banca;
-        //    TxtIban.Text = cliente.IBAN;
-        //    TxtRegimeIva.Text = cliente.DescrizioneRegimeIVA;
-
-
-        //    // Booleano → Sì/No
-        //    //TxtPubblicaAmm.Text = cliente.PubblicaAmministrazione ? "Sì" : "No";
-
-        //    BtnElimina.Enabled = true;
-        //    BtnModifica.Enabled = true;
-        //    BtnGestioneContatti.Enabled = true;
-        //    BtnDestinazioniDiverse.Enabled = true;
-        //}
+       
 
         private void SvuotaDettagli()
         {
@@ -360,10 +310,10 @@ namespace ArenaFlowManager.UserControls
             TxtRegimeIva.Text = string.Empty;
 
             // Reset pulsanti azione (opzionale ma consigliato)
-            BtnElimina.Enabled = false;
-            BtnModifica.Enabled = false;
-            BtnGestioneContatti.Enabled = false;
-            BtnDestinazioniDiverse.Enabled = false;
+            BtnElimina.Visible = false;
+            BtnModifica.Visible = false;
+            BtnGestioneContatti.Visible = false;
+            BtnDestinazioniDiverse.Visible = false;
         }
 
         private void GrigliaSolaLettura()

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmContatti));
             this.panel1 = new System.Windows.Forms.Panel();
             this.LblTitoloForm = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -39,6 +40,10 @@
             this.CboTipo = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
             this.dataGridViewContatti = new System.Windows.Forms.DataGridView();
+            this.IdContattoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoContatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Contatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnNuovo = new System.Windows.Forms.Button();
             this.BtnModifica = new System.Windows.Forms.Button();
@@ -47,10 +52,6 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnSalva = new System.Windows.Forms.Button();
             this.BtnEsciSenzaSalvare = new System.Windows.Forms.Button();
-            this.IdContattoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoContatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Contatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContatti)).BeginInit();
@@ -110,6 +111,7 @@
             this.TxtContatto.Name = "TxtContatto";
             this.TxtContatto.Size = new System.Drawing.Size(487, 24);
             this.TxtContatto.TabIndex = 49;
+            this.TxtContatto.Tag = "required";
             // 
             // label15
             // 
@@ -141,6 +143,7 @@
             this.CboTipo.Name = "CboTipo";
             this.CboTipo.Size = new System.Drawing.Size(287, 26);
             this.CboTipo.TabIndex = 47;
+            this.CboTipo.Tag = "required";
             // 
             // label22
             // 
@@ -168,10 +171,45 @@
             this.dataGridViewContatti.ReadOnly = true;
             this.dataGridViewContatti.Size = new System.Drawing.Size(1013, 345);
             this.dataGridViewContatti.TabIndex = 44;
+            this.dataGridViewContatti.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContatti_CellContentClick);
             this.dataGridViewContatti.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContatti_CellDoubleClick);
             this.dataGridViewContatti.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewContatti_RowHeaderMouseClick);
             this.dataGridViewContatti.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewContatti_RowHeaderMouseDoubleClick);
             this.dataGridViewContatti.SelectionChanged += new System.EventHandler(this.dataGridViewContatti_SelectionChanged);
+            // 
+            // IdContattoCliente
+            // 
+            this.IdContattoCliente.DataPropertyName = "idContattoCliente";
+            this.IdContattoCliente.HeaderText = "IdContattoCliente";
+            this.IdContattoCliente.Name = "IdContattoCliente";
+            this.IdContattoCliente.ReadOnly = true;
+            this.IdContattoCliente.Visible = false;
+            this.IdContattoCliente.Width = 5;
+            // 
+            // TipoContatto
+            // 
+            this.TipoContatto.DataPropertyName = "TipoContatto";
+            this.TipoContatto.HeaderText = "Tipo";
+            this.TipoContatto.Name = "TipoContatto";
+            this.TipoContatto.ReadOnly = true;
+            this.TipoContatto.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TipoContatto.Width = 200;
+            // 
+            // Contatto
+            // 
+            this.Contatto.DataPropertyName = "Contatto";
+            this.Contatto.HeaderText = "Contatto";
+            this.Contatto.Name = "Contatto";
+            this.Contatto.ReadOnly = true;
+            this.Contatto.Width = 250;
+            // 
+            // Nota
+            // 
+            this.Nota.DataPropertyName = "NotaContatto";
+            this.Nota.HeaderText = "Nota";
+            this.Nota.Name = "Nota";
+            this.Nota.ReadOnly = true;
+            this.Nota.Width = 520;
             // 
             // flowLayoutPanel2
             // 
@@ -217,6 +255,7 @@
             this.BtnElimina.TabIndex = 1;
             this.BtnElimina.Text = "Elimina";
             this.BtnElimina.UseVisualStyleBackColor = true;
+            this.BtnElimina.Click += new System.EventHandler(this.BtnElimina_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -252,40 +291,6 @@
             this.BtnEsciSenzaSalvare.UseVisualStyleBackColor = true;
             this.BtnEsciSenzaSalvare.Click += new System.EventHandler(this.BtnEsciSenzaSalvare_Click);
             // 
-            // IdContattoCliente
-            // 
-            this.IdContattoCliente.DataPropertyName = "idContattoCliente";
-            this.IdContattoCliente.HeaderText = "IdContattoCliente";
-            this.IdContattoCliente.Name = "IdContattoCliente";
-            this.IdContattoCliente.ReadOnly = true;
-            this.IdContattoCliente.Visible = false;
-            this.IdContattoCliente.Width = 5;
-            // 
-            // TipoContatto
-            // 
-            this.TipoContatto.DataPropertyName = "TipoContatto";
-            this.TipoContatto.HeaderText = "Tipo";
-            this.TipoContatto.Name = "TipoContatto";
-            this.TipoContatto.ReadOnly = true;
-            this.TipoContatto.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TipoContatto.Width = 200;
-            // 
-            // Contatto
-            // 
-            this.Contatto.DataPropertyName = "Contatto";
-            this.Contatto.HeaderText = "Contatto";
-            this.Contatto.Name = "Contatto";
-            this.Contatto.ReadOnly = true;
-            this.Contatto.Width = 250;
-            // 
-            // Nota
-            // 
-            this.Nota.DataPropertyName = "NotaContatto";
-            this.Nota.HeaderText = "Nota";
-            this.Nota.Name = "Nota";
-            this.Nota.ReadOnly = true;
-            this.Nota.Width = 520;
-            // 
             // FrmContatti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,6 +302,7 @@
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmContatti";

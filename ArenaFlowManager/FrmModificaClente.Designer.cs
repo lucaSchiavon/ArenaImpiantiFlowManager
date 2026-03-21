@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmModificaClente));
             this.panel1 = new System.Windows.Forms.Panel();
             this.LblTitoloForm = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -171,6 +172,7 @@
             this.CboStato.Name = "CboStato";
             this.CboStato.Size = new System.Drawing.Size(150, 26);
             this.CboStato.TabIndex = 24;
+            this.CboStato.Tag = "required";
             // 
             // label3
             // 
@@ -191,6 +193,7 @@
             this.CboCategoria.Name = "CboCategoria";
             this.CboCategoria.Size = new System.Drawing.Size(250, 26);
             this.CboCategoria.TabIndex = 23;
+            this.CboCategoria.Tag = "required";
             // 
             // label2
             // 
@@ -211,6 +214,7 @@
             this.CboPrivato.Name = "CboPrivato";
             this.CboPrivato.Size = new System.Drawing.Size(69, 26);
             this.CboPrivato.TabIndex = 22;
+            this.CboPrivato.Tag = "required";
             // 
             // label1
             // 
@@ -231,6 +235,7 @@
             this.TxtRagSoc.Name = "TxtRagSoc";
             this.TxtRagSoc.Size = new System.Drawing.Size(369, 51);
             this.TxtRagSoc.TabIndex = 21;
+            this.TxtRagSoc.Tag = "required";
             // 
             // label8
             // 
@@ -463,6 +468,7 @@
             this.CboScissionePagamenti.Name = "CboScissionePagamenti";
             this.CboScissionePagamenti.Size = new System.Drawing.Size(69, 26);
             this.CboScissionePagamenti.TabIndex = 43;
+            this.CboScissionePagamenti.Tag = "required";
             // 
             // CboPubblicaAmm
             // 
@@ -472,6 +478,7 @@
             this.CboPubblicaAmm.Name = "CboPubblicaAmm";
             this.CboPubblicaAmm.Size = new System.Drawing.Size(69, 26);
             this.CboPubblicaAmm.TabIndex = 42;
+            this.CboPubblicaAmm.Tag = "required";
             // 
             // label16
             // 
@@ -656,7 +663,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 776);
-            this.ControlBox = false;
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -666,6 +672,7 @@
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmModificaClente";

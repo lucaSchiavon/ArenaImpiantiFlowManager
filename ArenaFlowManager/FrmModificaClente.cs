@@ -1,4 +1,5 @@
-﻿using ArenaFlowManager.Models;
+﻿using ArenaFlowManager.Managers;
+using ArenaFlowManager.Models;
 using ArenaFlowManager.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,15 @@ namespace ArenaFlowManager
         private int _idCliente;
         private ArenaFlowManager.Models.Clienti.AnagraficaClientiDto _cliente;
         public int IdClienteSalvato { get; private set; }
-
+        private FormValidatorManager formValidatorManager;
         public FrmModificaClente(int idCliente)
         {
             try
             {
                 ClientiRepository repo = new ArenaFlowManager.Repositories.ClientiRepository();
-
+                formValidatorManager = new FormValidatorManager();
                 InitializeComponent();
+                AttachEnterHandlers(this); //aggancia la gestione degli eventi Enter e leave a tutti i campi della maschera
                 _idCliente = idCliente;
 
                 //popola le combo
@@ -55,33 +57,16 @@ namespace ArenaFlowManager
 
                     if (_cliente != null)
                     {
-                        //LblTitoloForm.Text = $"Modifica Cliente: {_cliente.RagioneSociale}";
 
-                       
-                        //CaricaComboSiNo(CboPrivato, true);
-
-                        //CaricaComboDaDb(CboCategoria, repo.GetCboCategoriaAnagraficaItems(), true);
-                        //CaricaComboDaDb(CboStato, repo.GetCboStatoAnagraficaItems(), true);
-                        //CaricaComboDaDb(CboProvincia, repo.GetCboPrvinceItems(), true);
-                        //CaricaComboDaDb(CboPaese, repo.GetCboPaeseItems(), true);
-                        //CaricaComboDaDb(CboPagamento, repo.GetCboPagamentoItems(), true);
-                        //CaricaComboDaDb(CboBanca, repo.GetCboBancaItems(), true);
-                        //CaricaComboDaDb(CboRegimeIva, repo.GetCboRegimeIvaItems(), true);
-
-                        //CaricaComboSiNo(CboPubblicaAmm, true);
-                        //CaricaComboSiNo(CboScissionePagamenti, true);
-                        //CaricaComboSiNo(CboConsensoPrivacy, true);
-
+                        //LblTitoloForm.Text = $"Gestione Anagrafica Clienti - {_cliente.RagioneSociale}";
+                        LblTitoloForm.Text = $"Gestione Anagrafica Clienti - Modifica Cliente";
                         // Popola i campi della maschera (esempio)
 
                         TxtRagSoc.Text = _cliente.RagioneSociale;
-                        CboPrivato.SelectedValue = _cliente.Privato.ToString();
-                        //TxtCodice.Text = _cliente.CodiceCliente;
+                        CboPrivato.SelectedValue = _cliente.Privato.ToString();                 
                         CboCategoria.SelectedValue = _cliente.IdCategoriaCliente.ToString();
                         CboStato.SelectedValue = _cliente.IdStatoAnagrafica.ToString();
-                        //TxtCategoria.Text = _cliente.CategoriaCliente;
-                        //TxtStato.Text = _cliente.StatoAnagrafica;
-
+                      
                         TxtIndirizzo.Text = _cliente.Indirizzo;
                         TxtCap.Text = _cliente.CAP;
                         TxtComune.Text = _cliente.Comune;
@@ -101,18 +86,14 @@ namespace ArenaFlowManager
 
                         CboPagamento.SelectedValue = _cliente.IdPagamento?.ToString() ?? "_"; //*
                         CboBanca.SelectedValue = _cliente.IdBancaAppoggio?.ToString() ?? "_"; //*
-                        //TxtIban.Text = _cliente.; //todo: toglierlo dalla anagrafica
+                        
                         CboRegimeIva.SelectedValue = _cliente.IdRegimeIVA?.ToString() ?? "_"; //*
 
                     }
                 }
                 else
                 {
-                    //LblTitoloForm.Text = $"Nuovo Cliente";
-
-
-
-
+                    LblTitoloForm.Text = $"Gestione Anagrafica Clienti - Nuovo Cliente";
                     // Nuovo inserimento
                     _cliente = new ArenaFlowManager.Models.Clienti.AnagraficaClientiDto();
                     //imposta i default
@@ -124,7 +105,17 @@ namespace ArenaFlowManager
                     CboConsensoPrivacy.SelectedValue = "0";
                     CboRegimeIva.SelectedValue = "1"; //regime ordinario
 
+                    
+
                 }
+
+                //visualizza campi obbligatori
+                bool allValid = formValidatorManager.ValidateRequiredFields(this);
+                // Mostra o nasconde il bottone Salva
+                BtnSalva.Visible = allValid;
+
+                TxtRagSoc.Focus();
+                
             }
             catch (Exception ex) 
             { 
@@ -244,13 +235,117 @@ namespace ArenaFlowManager
             TxtIban.Text = "IT54N0503459380000000000262";
         }
 
-        //private void label10_Click(object sender, EventArgs e)
-        //{
+       
+        private void AttachEnterHandlers(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                if (c is TextBox || c is ComboBox)
+                {
+                    c.Enter -= RequiredField_Enter; // evita doppie associazioni
+                    c.Enter += RequiredField_Enter;
 
-        //}
-        //private void BtnSalva_Click(object sender, EventArgs e)
-        //{
+                    c.Leave -= RequiredField_Leave;
+                    c.Leave += RequiredField_Leave;
+                }
 
+                // Ricorsione per pannelli, groupbox, tabpage, ecc.
+                if (c.HasChildren)
+                    AttachEnterHandlers(c);
+            }
+        }
+        
+
+        //private bool ValidateRequiredFields(Control parent)
+        //{
+        //    bool isValid = true;
+
+        //    foreach (Control c in parent.Controls)
+        //    {
+        //        // TEXTBOX
+        //        if (c is TextBox tb && (string)tb.Tag == "required")
+        //        {
+        //            if (string.IsNullOrWhiteSpace(tb.Text))
+        //            {
+        //                MarkInvalid(tb);
+        //                isValid = false;
+        //            }
+        //            else
+        //            {
+        //                ClearInvalid(tb);
+        //            }
+        //        }
+
+        //        // COMBOBOX
+        //        if (c is ComboBox cb && (string)cb.Tag == "required")
+        //        {
+        //            //if (cb.SelectedIndex < 0 || string.IsNullOrWhiteSpace(cb.Text))
+        //            //{
+        //            if (cb.SelectedValue.ToString() == "-")
+        //            {
+        //                MarkInvalid(cb);
+        //                isValid = false;
+        //            }
+        //            else
+        //            {
+        //                ClearInvalid(cb);
+        //            }
+        //        }
+
+        //        // Ricorsione per pannelli, groupbox, tabpage, ecc.
+        //        if (c.HasChildren)
+        //        {
+        //            if (!ValidateRequiredFields(c))
+        //                isValid = false;
+        //        }
+        //    }
+
+        //    return isValid;
         //}
+        //private void MarkInvalid(Control c)
+        //{
+        //    c.BackColor = Color.MistyRose;
+        //    c.ForeColor = Color.DarkRed;
+
+        //    // Bordo rosso (solo se il controllo lo supporta)
+        //    if (c is TextBox || c is ComboBox)
+        //    {
+        //        c.Padding = new Padding(1);
+        //        c.BackColor = Color.MistyRose;
+        //    }
+
+        //    RequiredToolTip.SetToolTip(c, "Campo obbligatorio");
+        //}
+
+        //private void ClearInvalid(Control c)
+        //{
+        //    c.BackColor = SystemColors.Window;
+        //    c.ForeColor = SystemColors.ControlText;
+        //    c.Padding = new Padding(0);
+
+        //    RequiredToolTip.SetToolTip(c, "");
+        //}
+
+        private void RequiredField_Enter(object sender, EventArgs e)
+        {
+            if (sender is Control c)
+            {
+                // Ripristina colori normali quando l’utente entra nel campo
+                c.BackColor = SystemColors.Window;
+                c.ForeColor = SystemColors.ControlText;
+                c.Padding = new Padding(0);
+
+                formValidatorManager.RequiredToolTip.SetToolTip(c, "");
+            }
+        }
+
+        private void RequiredField_Leave(object sender, EventArgs e)
+        {
+            // Validazione completa del form
+            bool allValid = formValidatorManager.ValidateRequiredFields(this);
+
+            // Mostra o nasconde il bottone Salva
+            BtnSalva.Visible = allValid;
+        }
     }
 }

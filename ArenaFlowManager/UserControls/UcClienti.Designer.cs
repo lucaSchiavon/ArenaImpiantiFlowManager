@@ -38,12 +38,6 @@
             this.BtnGestioneContatti = new System.Windows.Forms.Button();
             this.BtnDestinazioniDiverse = new System.Windows.Forms.Button();
             this.dataGridViewClienti = new System.Windows.Forms.DataGridView();
-            this.IdAnagraficaCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RagioneSociale = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Comune = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Prov = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CAP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Contatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TblPnlSearch = new System.Windows.Forms.TableLayoutPanel();
             this.BtnReset = new System.Windows.Forms.Button();
             this.TxtRicerca = new System.Windows.Forms.TextBox();
@@ -97,6 +91,12 @@
             this.TxtRagSoc = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.bindingSourceClienti = new System.Windows.Forms.BindingSource(this.components);
+            this.IdAnagraficaCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RagioneSociale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comune = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Prov = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CAP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Contatto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -188,7 +188,6 @@
             // 
             // BtnModifica
             // 
-            this.BtnModifica.Enabled = false;
             this.BtnModifica.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModifica.Location = new System.Drawing.Point(402, 8);
             this.BtnModifica.Name = "BtnModifica";
@@ -200,7 +199,6 @@
             // 
             // BtnElimina
             // 
-            this.BtnElimina.Enabled = false;
             this.BtnElimina.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnElimina.Location = new System.Drawing.Point(321, 8);
             this.BtnElimina.Name = "BtnElimina";
@@ -212,7 +210,6 @@
             // 
             // BtnGestioneContatti
             // 
-            this.BtnGestioneContatti.Enabled = false;
             this.BtnGestioneContatti.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGestioneContatti.Location = new System.Drawing.Point(240, 8);
             this.BtnGestioneContatti.Name = "BtnGestioneContatti";
@@ -224,7 +221,6 @@
             // 
             // BtnDestinazioniDiverse
             // 
-            this.BtnDestinazioniDiverse.Enabled = false;
             this.BtnDestinazioniDiverse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDestinazioniDiverse.Location = new System.Drawing.Point(71, 8);
             this.BtnDestinazioniDiverse.Name = "BtnDestinazioniDiverse";
@@ -254,53 +250,6 @@
             this.dataGridViewClienti.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClienti_CellDoubleClick_1);
             this.dataGridViewClienti.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewClienti_RowHeaderMouseDoubleClick_1);
             this.dataGridViewClienti.SelectionChanged += new System.EventHandler(this.dataGridViewClienti_SelectionChanged);
-            // 
-            // IdAnagraficaCliente
-            // 
-            this.IdAnagraficaCliente.DataPropertyName = "idAnagraficaCliente";
-            this.IdAnagraficaCliente.HeaderText = "IdAnagraficaCliente";
-            this.IdAnagraficaCliente.Name = "IdAnagraficaCliente";
-            this.IdAnagraficaCliente.ReadOnly = true;
-            this.IdAnagraficaCliente.Visible = false;
-            this.IdAnagraficaCliente.Width = 5;
-            // 
-            // RagioneSociale
-            // 
-            this.RagioneSociale.DataPropertyName = "RagioneSociale";
-            this.RagioneSociale.HeaderText = "Ragione sociale";
-            this.RagioneSociale.Name = "RagioneSociale";
-            this.RagioneSociale.ReadOnly = true;
-            this.RagioneSociale.Width = 400;
-            // 
-            // Comune
-            // 
-            this.Comune.DataPropertyName = "Comune";
-            this.Comune.HeaderText = "Comune";
-            this.Comune.Name = "Comune";
-            this.Comune.ReadOnly = true;
-            this.Comune.Width = 200;
-            // 
-            // Prov
-            // 
-            this.Prov.DataPropertyName = "Prov";
-            this.Prov.HeaderText = "Provincia";
-            this.Prov.Name = "Prov";
-            this.Prov.ReadOnly = true;
-            // 
-            // CAP
-            // 
-            this.CAP.DataPropertyName = "CAP";
-            this.CAP.HeaderText = "CAP";
-            this.CAP.Name = "CAP";
-            this.CAP.ReadOnly = true;
-            // 
-            // Contatto
-            // 
-            this.Contatto.DataPropertyName = "Contatto";
-            this.Contatto.HeaderText = "Contatto";
-            this.Contatto.Name = "Contatto";
-            this.Contatto.ReadOnly = true;
-            this.Contatto.Width = 430;
             // 
             // TblPnlSearch
             // 
@@ -858,6 +807,53 @@
             this.label8.TabIndex = 11;
             this.label8.Text = "Ragione Sociale:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // IdAnagraficaCliente
+            // 
+            this.IdAnagraficaCliente.DataPropertyName = "idAnagraficaCliente";
+            this.IdAnagraficaCliente.HeaderText = "IdAnagraficaCliente";
+            this.IdAnagraficaCliente.Name = "IdAnagraficaCliente";
+            this.IdAnagraficaCliente.ReadOnly = true;
+            this.IdAnagraficaCliente.Visible = false;
+            this.IdAnagraficaCliente.Width = 5;
+            // 
+            // RagioneSociale
+            // 
+            this.RagioneSociale.DataPropertyName = "RagioneSociale";
+            this.RagioneSociale.HeaderText = "Ragione sociale";
+            this.RagioneSociale.Name = "RagioneSociale";
+            this.RagioneSociale.ReadOnly = true;
+            this.RagioneSociale.Width = 400;
+            // 
+            // Comune
+            // 
+            this.Comune.DataPropertyName = "Comune";
+            this.Comune.HeaderText = "Comune";
+            this.Comune.Name = "Comune";
+            this.Comune.ReadOnly = true;
+            this.Comune.Width = 200;
+            // 
+            // Prov
+            // 
+            this.Prov.DataPropertyName = "Prov";
+            this.Prov.HeaderText = "Provincia";
+            this.Prov.Name = "Prov";
+            this.Prov.ReadOnly = true;
+            // 
+            // CAP
+            // 
+            this.CAP.DataPropertyName = "CAP";
+            this.CAP.HeaderText = "CAP";
+            this.CAP.Name = "CAP";
+            this.CAP.ReadOnly = true;
+            // 
+            // Contatto
+            // 
+            this.Contatto.DataPropertyName = "Contatto";
+            this.Contatto.HeaderText = "Contatto";
+            this.Contatto.Name = "Contatto";
+            this.Contatto.ReadOnly = true;
+            this.Contatto.Width = 440;
             // 
             // UcClienti
             // 
