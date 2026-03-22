@@ -228,6 +228,7 @@
             this.BtnDestinazioniDiverse.TabIndex = 4;
             this.BtnDestinazioniDiverse.Text = "Destinazioni diverse";
             this.BtnDestinazioniDiverse.UseVisualStyleBackColor = true;
+            this.BtnDestinazioniDiverse.Visible = false;
             // 
             // dataGridViewClienti
             // 

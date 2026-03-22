@@ -113,6 +113,8 @@ namespace ArenaFlowManager
 
         private void BtnNuovo_Click(object sender, EventArgs e)
         {
+            BtnNuovo.Visible = false;
+
             DaInserimento = true;
             //mostra il panel per l'inserimento del nuovo contatto
             this.Height = 743;
@@ -133,6 +135,8 @@ namespace ArenaFlowManager
 
         private void BtnModifica_Click(object sender, EventArgs e)
         {
+            BtnModifica.Visible = false;
+
             DaInserimento = false;
             //precarica i dati del contatto selezionato nel pannello di inserimento/modifica e mostra il pannello per la modifica
             var repo = new ContattiRepository();

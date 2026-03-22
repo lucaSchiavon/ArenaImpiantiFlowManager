@@ -84,6 +84,8 @@
             this.CboRegimeIva = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -93,6 +95,8 @@
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -120,8 +124,8 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.flowLayoutPanel1.Controls.Add(this.BtnSalva);
-            this.flowLayoutPanel1.Controls.Add(this.BtnEsciSenzaSalvare);
+            this.flowLayoutPanel1.Controls.Add(this.flowLayoutPanel2);
+            this.flowLayoutPanel1.Controls.Add(this.flowLayoutPanel3);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 712);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -132,7 +136,7 @@
             // BtnSalva
             // 
             this.BtnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalva.Location = new System.Drawing.Point(517, 8);
+            this.BtnSalva.Location = new System.Drawing.Point(212, 3);
             this.BtnSalva.Name = "BtnSalva";
             this.BtnSalva.Size = new System.Drawing.Size(75, 39);
             this.BtnSalva.TabIndex = 0;
@@ -143,7 +147,7 @@
             // BtnEsciSenzaSalvare
             // 
             this.BtnEsciSenzaSalvare.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(361, 8);
+            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(3, 3);
             this.BtnEsciSenzaSalvare.Name = "BtnEsciSenzaSalvare";
             this.BtnEsciSenzaSalvare.Size = new System.Drawing.Size(150, 39);
             this.BtnEsciSenzaSalvare.TabIndex = 1;
@@ -618,7 +622,6 @@
             this.CboPagamento.Name = "CboPagamento";
             this.CboPagamento.Size = new System.Drawing.Size(466, 26);
             this.CboPagamento.TabIndex = 47;
-            //this.CboPagamento.SelectedIndexChanged += new System.EventHandler(this.CboPagamento_SelectedIndexChanged);
             // 
             // label22
             // 
@@ -666,11 +669,31 @@
             this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider1.ContainerControl = this;
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.BtnSalva);
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(302, 8);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(290, 47);
+            this.flowLayoutPanel2.TabIndex = 2;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.BtnEsciSenzaSalvare);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel3.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(6, 8);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(290, 47);
+            this.flowLayoutPanel3.TabIndex = 3;
+            // 
             // FrmModificaClente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(619, 776);
+            this.ControlBox = false;
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -700,6 +723,8 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -759,5 +784,7 @@
         private System.Windows.Forms.ComboBox CboRegimeIva;
         private System.Windows.Forms.TextBox TxtRagSoc;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
     }
 }

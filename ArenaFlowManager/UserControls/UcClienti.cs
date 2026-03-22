@@ -283,7 +283,7 @@ namespace ArenaFlowManager.UserControls
             BtnElimina.Visible = true;
             BtnModifica.Visible = true;
             BtnGestioneContatti.Visible = true;
-            BtnDestinazioniDiverse.Visible = true;
+            //BtnDestinazioniDiverse.Visible = true;
         }
 
 
@@ -325,7 +325,7 @@ namespace ArenaFlowManager.UserControls
             BtnElimina.Visible = false;
             BtnModifica.Visible = false;
             BtnGestioneContatti.Visible = false;
-            BtnDestinazioniDiverse.Visible = false;
+            //BtnDestinazioniDiverse.Visible = false;
         }
 
         //todo:da spostare nello user control base, così da poterlo riutilizzare in tutti gli user control che hanno una griglia dati

@@ -52,12 +52,16 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnSalva = new System.Windows.Forms.Button();
             this.BtnEsciSenzaSalvare = new System.Windows.Forms.Button();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContatti)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceContatti)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -260,8 +264,8 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.flowLayoutPanel1.Controls.Add(this.BtnSalva);
-            this.flowLayoutPanel1.Controls.Add(this.BtnEsciSenzaSalvare);
+            this.flowLayoutPanel1.Controls.Add(this.flowLayoutPanel3);
+            this.flowLayoutPanel1.Controls.Add(this.flowLayoutPanel4);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 634);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -272,7 +276,7 @@
             // BtnSalva
             // 
             this.BtnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalva.Location = new System.Drawing.Point(935, 8);
+            this.BtnSalva.Location = new System.Drawing.Point(422, 3);
             this.BtnSalva.Name = "BtnSalva";
             this.BtnSalva.Size = new System.Drawing.Size(75, 39);
             this.BtnSalva.TabIndex = 0;
@@ -283,13 +287,30 @@
             // BtnEsciSenzaSalvare
             // 
             this.BtnEsciSenzaSalvare.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(765, 8);
+            this.BtnEsciSenzaSalvare.Location = new System.Drawing.Point(3, 3);
             this.BtnEsciSenzaSalvare.Name = "BtnEsciSenzaSalvare";
             this.BtnEsciSenzaSalvare.Size = new System.Drawing.Size(164, 39);
             this.BtnEsciSenzaSalvare.TabIndex = 1;
             this.BtnEsciSenzaSalvare.Text = "Esci senza salvare";
             this.BtnEsciSenzaSalvare.UseVisualStyleBackColor = true;
             this.BtnEsciSenzaSalvare.Click += new System.EventHandler(this.BtnEsciSenzaSalvare_Click);
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.BtnSalva);
+            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(510, 8);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(500, 51);
+            this.flowLayoutPanel3.TabIndex = 0;
+            // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.Controls.Add(this.BtnEsciSenzaSalvare);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(4, 8);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(500, 51);
+            this.flowLayoutPanel4.TabIndex = 1;
             // 
             // FrmContatti
             // 
@@ -318,6 +339,8 @@
             this.flowLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceContatti)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -345,5 +368,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoContatto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Contatto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nota;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
     }
 }
